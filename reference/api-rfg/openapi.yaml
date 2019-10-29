@@ -1,0 +1,814 @@
+info:
+  title: API WorldClass
+  version: '1.0'
+  description: |
+    URL для http запроса
+    рабочая среда https://solutions.worldclass.ru/API/hs/external
+    тестовая среда https://tsolutions.worldclass.ru/API/hs/external
+  contact:
+    email: SupportKPO@wclass.ru
+  termsOfService: ''
+paths:
+  /gymList:
+    post:
+      summary: список клубов - 5.5; 20.1
+      description: |-
+        Возвращает список клубов заданной сети
+
+        Ответственный Давид Мелкумян
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: content-type
+          in: header
+          required: true
+          type: string
+          default: application/json
+          enum:
+            - application/json
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: gymList
+        - name: language
+          in: header
+          required: true
+          type: string
+          description: язык интерфейса клиента
+          default: En
+          enum:
+            - Ru
+            - En
+        - name: brand
+          in: header
+          required: true
+          type: string
+          description: бренд
+          default: WorldClass
+          enum:
+            - WorldClass
+            - Fizkult
+            - UFC
+            - None
+        - name: auth-key
+          in: header
+          required: true
+          type: string
+          description: ключи авторизации (токен)
+          x-example: 4f1225f6-cb40-11e9-bba8-005056b11c47
+          default: 4f1225f6-cb40-11e9-bba8-005056b11c470
+          maxLength: 0
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              chain:
+                type: integer
+                description: идентификатор сети
+                example: 1
+          x-examples: {}
+          description: 'request example  '
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: идентификатор клуба
+                  minLength: 36
+                  maxLength: 36
+                name:
+                  type: string
+                  description: наименование клуба
+                type:
+                  type: string
+                  description: тип клуба
+                address:
+                  type: string
+                  description: адрес клуба
+                segment:
+                  type: object
+                  description: сегмент клуба
+                  required:
+                    - name
+                    - color
+                  properties:
+                    name:
+                      type: string
+                    color:
+                      type: string
+                coords:
+                  type: object
+                  description: координаты
+                  properties:
+                    latitude:
+                      type: number
+                      description: широта
+                    longitude:
+                      type: number
+                      description: долгота
+                  required:
+                    - latitude
+                    - longitude
+                metro:
+                  type: array
+                  description: метро
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: наименование
+                      lineColor:
+                        type: string
+                        description: телефон
+                      lineName:
+                        type: string
+                        description: время работы в будни
+                      lineNumber:
+                        type: string
+                        description: время  работы в выходные и праздники
+                    required:
+                      - name
+                      - lineColor
+                      - lineName
+                      - lineNumber
+                phone:
+                  type: string
+                  description: основной телефон клуба
+                hasAccess:
+                  type: boolean
+                  description: 'есть доступ, для не авторизованного клиента null'
+                photo:
+                  type: string
+                  description: основное фото клуба
+                state:
+                  type: string
+                  description: 'состояние: "Предпродажи", "Ремонт" и т.д.'
+                weekdaysTime:
+                  type: string
+                  description: время работы в будни
+                holidaysTime:
+                  type: string
+                  description: время работы в выходные
+              required:
+                - uid
+                - name
+                - type
+                - address
+                - segment
+                - metro
+                - phone
+                - photo
+          examples: {}
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Lists
+    x-restlet:
+      section: Lists
+  /gymInfo:
+    x-restlet:
+      section: Lists
+    post:
+      summary: информация по клубу - 20.2
+      description: |-
+        Возвращает информацию по клубу
+
+        Ответственный Давид Мелкумян
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: content-type
+          in: header
+          required: true
+          type: string
+          default: application/json
+          enum:
+            - application/json
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: gymInfo
+        - name: language
+          in: header
+          required: true
+          type: string
+          description: язык интерфейса клиента
+          default: En
+          enum:
+            - Ru
+            - En
+        - name: brand
+          in: header
+          required: true
+          type: string
+          description: бренд
+          default: WorldClass
+          enum:
+            - WorldClass
+            - Fizkult
+            - UFC
+            - None
+        - name: auth-key
+          in: header
+          required: true
+          type: string
+          description: ключи авторизации (токен)
+          x-example: 4f1225f6-cb40-11e9-bba8-005056b11c47
+          default: 4f1225f6-cb40-11e9-bba8-005056b11c470
+          maxLength: 0
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              uid:
+                type: string
+                example: cc35e9bd-d155-11e4-80d1-005056810138
+                description: идентификатор клуба
+            required:
+              - uid
+          description: 'request example  '
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              state:
+                type: string
+                description: 'состояние: "Предпродажи", "Ремонт" и т.д.'
+              additional:
+                type: array
+                description: дополнительное описание
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: направление
+                      enum:
+                        - fit
+                        - spa
+                        - add
+                    name:
+                      type: string
+                      description: наименование
+                    description:
+                      type: string
+                      description: доп. описание
+                  required:
+                    - type
+                    - name
+                    - description
+              metro:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    lineColor:
+                      type: string
+                    lineName:
+                      type: string
+                    lineNumber:
+                      type: string
+                  required:
+                    - name
+                    - lineColor
+                    - lineName
+                    - lineNumber
+              photos:
+                type: array
+                description: список URL фотографий
+                items:
+                  type: string
+              departments:
+                type: array
+                description: департаменты
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: наименование
+                    phone:
+                      type: string
+                      description: телефон
+                    weekdaysTime:
+                      type: string
+                      description: время работы в будни
+                    holidaysTime:
+                      type: string
+                      description: время  работы в выходные и праздники
+                  required:
+                    - name
+                    - phone
+                    - weekdaysTime
+                    - holidaysTime
+              coords:
+                type: object
+                description: координаты
+                required:
+                  - latitude
+                  - longitude
+                properties:
+                  latitude:
+                    type: number
+                    description: широта
+                  longitude:
+                    type: integer
+                    description: долгота
+              segment:
+                type: object
+                description: наименование  сегмента клуба
+                required:
+                  - name
+                  - color
+                properties:
+                  name:
+                    type: string
+                  color:
+                    type: string
+              address:
+                type: string
+                description: адрес клуба
+              type:
+                type: string
+                description: тип клуба
+              name:
+                type: string
+                description: наименование клуба
+              uid:
+                type: string
+                description: идентификатор клуба
+                minLength: 36
+                maxLength: 36
+            required:
+              - additional
+              - metro
+              - photos
+              - departments
+              - coords
+              - segment
+              - address
+              - type
+              - name
+              - uid
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Information
+  /gymSchedule:
+    post:
+      summary: расписание занятий в клубе/клубах - 18.1
+      description: "Возвращает расписание групповых программ в клубе/клубах\n\nТочки входа в метод: \n1. Непосредственно по кнопке в командной панели\n2. Из описания сотрудника\n3. Из описания услуги\n\nОтветственный Наталья Калиниченко (69691/KalinichenkoNP@wclass.ru)"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: content-type
+          in: header
+          required: true
+          type: string
+          default: application/json
+          enum:
+            - application/json
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: gymSchedule
+        - name: language
+          in: header
+          required: true
+          type: string
+          description: язык интерфейса клиента
+          default: En
+          enum:
+            - Ru
+            - En
+        - name: brand
+          in: header
+          required: true
+          type: string
+          description: бренд
+          default: WorldClass
+          enum:
+            - WorldClass
+            - Fizkult
+            - UFC
+        - name: auth-key
+          in: header
+          required: true
+          type: string
+          description: ключ авторизации (токен)
+          x-example: 4f1225f6-cb40-11e9-bba8-005056b11c47
+          default: 4f1225f6-cb40-11e9-bba8-005056b11c470
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              gymList:
+                type: array
+                default:
+                  - cc35e9c2-d155-11e4-80d1-005056810138
+                description: список идентификаторов клубов
+                items:
+                  type: string
+              startDate:
+                type: string
+                description: дата начала
+                format: date
+                example: '2019-10-01T13:00:00'
+              endDate:
+                type: string
+                description: дата окончания
+                format: date
+                example: '2019-10-15T00:00:00'
+              serviceDescriptionId:
+                type: string
+                default: ''
+                description: идентификатор описания услуги
+              employeeId:
+                type: string
+                default: ''
+                description: идентификатор сотрудника
+            required:
+              - gymList
+              - startDate
+              - endDate
+          x-examples: {}
+          description: ''
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              gymList:
+                type: array
+                description: список идентификаторов клубов
+                items:
+                  type: string
+              startDate:
+                type: string
+                format: date
+                description: дата начала
+                example: '2019-07-01T13:00:00'
+              endDate:
+                type: string
+                format: date
+                description: дата окончания
+                example: '2019-07-15T00:00:00'
+              serviceDescriptionId:
+                type: string
+                description: идентификатор описания услуги
+              employeeId:
+                type: string
+                description: идентификатор сотрудника
+            required:
+              - gymList
+              - startDate
+              - endDate
+          x-examples:
+            example-1: {}
+          description: ''
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                docId:
+                  type: string
+                  description: идентификатор документа группового занятия
+                date:
+                  description: время начала группового занятия
+                  type: string
+                service:
+                  type: object
+                  description: описание услуги
+                  required:
+                    - uid
+                    - name
+                    - shortDescription
+                    - photo
+                    - tagList
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор описания услуги
+                    name:
+                      type: string
+                      description: наименование описания услуги
+                    shortDescription:
+                      type: string
+                      description: краткое описания услуги
+                    photo:
+                      type: string
+                      description: URL фотографии
+                    tagList:
+                      type: array
+                      description: теги
+                      items:
+                        type: object
+                        properties:
+                          tag:
+                            type: string
+                            description: тег
+                          weight:
+                            type: number
+                            description: вес (приоритет)
+                        required:
+                          - tag
+                          - weight
+                isPreBooked:
+                  type: boolean
+                  description: требуется предварительная запись
+                isPrePaid:
+                  type: boolean
+                  description: требуется предварительная оплата
+                onlyWithParents:
+                  type: boolean
+                  description: при обязательном участии родителей
+                onlyMembers:
+                  type: boolean
+                  description: только члены клуба
+                duration:
+                  type: number
+                  description: длительность занятия
+                employee:
+                  type: object
+                  description: сотрудник
+                  required:
+                    - uid
+                    - firstName
+                    - lastName
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор сотрудника
+                    firstName:
+                      type: string
+                      description: имя
+                    lastName:
+                      type: string
+                      description: фамилия
+                room:
+                  type: object
+                  description: наименование помещения
+                  required:
+                    - uid
+                    - name
+                    - latitude
+                    - longitude
+                  properties:
+                    uid:
+                      type: string
+                    name:
+                      type: string
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                ageMin:
+                  type: number
+                  description: 'минимальный возраст,  в месяцах'
+                ageMax:
+                  type: number
+                  description: 'максимальный возраст,  в месяцах'
+                studentLevel:
+                  type: string
+                  description: уровень подготовки
+                  enum:
+                    - Any
+                    - Beginner
+                    - Medium
+                    - High
+                serviceKindName:
+                  type: string
+                  description: вид деятельности
+                gym:
+                  type: object
+                  description: клуб
+                  required:
+                    - uid
+                    - name
+                  properties:
+                    uid:
+                      type: string
+                    name:
+                      type: string
+                recorded:
+                  type: boolean
+                  description: клиент записан на урок
+                canCancel:
+                  type: boolean
+                  description: клиент может отменить запись на урок
+                canRecord:
+                  type: boolean
+                  description: клиент может записаться на урок
+                availablePlaces:
+                  type: number
+                  description: количество доступных мест
+              required:
+                - docId
+                - date
+                - service
+                - isPreBooked
+                - isPrePaid
+                - onlyWithParents
+                - onlyMembers
+                - duration
+                - employee
+                - room
+                - ageMin
+                - ageMax
+                - studentLevel
+                - serviceKindName
+                - gym
+                - recorded
+                - canCancel
+                - canRecord
+                - availablePlaces
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Schedules
+    x-restlet:
+      section: Schedules
+x-restlet:
+  sections:
+    Logs: {}
+    Doc: {}
+    General:
+      description: Основные методы ЛК
+    Users:
+      description: Методы отностящиеся к пользователю личного кабинета
+    Customers:
+      description: Методы относящиеся к данным клиента
+    Information:
+      description: детализированная информация по различным объектам
+    Schedules:
+      description: События
+    Lists: {}
+    CacheValuesTypes: {}
+    Temp: {}
+  texts:
+    ppl23q3:
+      title: 26.09.2019
+      content: |-
+        Внесены изменения в методы:
+
+        * [история бонусных операций](https://wclass.restlet.io/#operation__________________________)
+        * [расписание занятий в клубе/клубах - 18.1](https://wclass.restlet.io/#operation___________________________________-_18_1)
+        * [активности пользователя 15.1](https://wclass.restlet.io/#operation_________________________15_1)
+
+        Методы готовые к тестированию:
+        * [история бонусных операций](https://wclass.restlet.io/#operation__________________________)
+      section: Logs
+    lk1ezbh:
+      title: 25.09.2019
+      content: "Внесены изменения в методы:\n\n* [описание сотрудника - 21.2](https://wclass.restlet.io/#operation_____________________-_21_2)\n\tдобавлены теги\n\n* [cписок абонементов - 8.1; 8.2](https://wclass.restlet.io/#operation_c__________________-_8_1__8_2)\n\nДобавлено описание для методов:\n\n* [список услуг и подарков абонемента - 8.4](https://wclass.restlet.io/#operation____________________________________-_8_4)"
+      section: Logs
+    t0xsv9s:
+      title: 24.09.2019
+      content: |-
+        Методы готовые к тестированию:
+
+        * [семейный счет - 11.1](https://wclass.restlet.io/#operation_______________-_11_1)
+        * [связанные клиенты - 11.2.1](https://wclass.restlet.io/#operation___________________-_11_2_1)
+      section: Logs
+    9xrzmhp:
+      title: 23.09.2019
+      content: "Добавлено описание для методов:\n* [список сотрудников - 21.1](https://wclass.restlet.io/#operation____________________-_21_1) \n* [описание сотрудника - 21.2](https://wclass.restlet.io/#operation_____________________-_21_2)\n* [список услуг - 19.1](https://wclass.restlet.io/#operation______________-_19_1)\n* [описание услуги - 19.2](https://wclass.restlet.io/#operation_________________-_19_2)\n* [прайс лист абонементов - 8.5](https://wclass.restlet.io/#operation________________________-_8_5)\n* [описание абонемента для покупки - 8.6; 8.7](https://wclass.restlet.io/#operation_________________________________-_8_6__8_7)\n"
+      section: Logs
+    4wqvqg1:
+      title: 20.09.2019
+      content: |+
+        Методы готовые к тестированию:
+        * [история финансовых операций 12.1; 12.2](https://wclass.restlet.io/#operation_____________________________12_1__12_2)
+        * [расписание занятий в клубе/клубах - 18.1](https://wclass.restlet.io/#operation___________________________________-_18_1)
+        * [активности пользователя 15.1](https://wclass.restlet.io/#operation_________________________15_1)
+
+        Добавлено описание для методов:
+        * [прайс лист пакетов услуг - 9.2](https://wclass.restlet.io/#operation__________________________-_9_2)
+        * [конструктор пакетов услуг - 9.3](https://wclass.restlet.io/#operation___________________________-_9_3)
+
+
+      section: Logs
+    p9793d2:
+      title: ошибки
+      content: |+
+        | Код ошибки| Description | Описание |
+        | -------- | -------- | -------- |
+        | noAppVersion     | No app version     | Не указана версия приложения     |
+
+
+      section: Doc
+    12voqix:
+      title: установка/запуск приложения
+      content: |+
+        1. Пользователь скачал приложение/запустил приложение
+        2. Отпрваляется запрос [General/config](https://wclass.restlet.io/#operation_______________________________________). Возвращает информацию об актуальной версии приложения
+        3. Отправлеется запрос [General/registerDevice](https://wclass.restlet.io/#operation_______________________). Возвращается токен сеанса (auth-key), а так же всю информацию по данному сеансу.
+
+
+
+
+      section: Doc
+produces:
+  - application/json
+consumes:
+  - application/json
+schemes:
+  - https
+basePath: /API/hs/external
+host: tsolutions.worldclass.ru
+swagger: '2.0'
