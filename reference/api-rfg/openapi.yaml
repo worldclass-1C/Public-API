@@ -584,9 +584,13 @@ paths:
                           weight:
                             type: number
                             description: вес (приоритет)
+                          level:
+                            type: number
+                            description: уровень
                         required:
                           - tag
                           - weight
+                          - level
                 isPreBooked:
                   type: boolean
                   description: требуется предварительная запись
