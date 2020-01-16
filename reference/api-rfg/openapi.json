@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "URL для http запроса\nрабочая среда https://solutions.worldclass.ru/API/hs/external\nтестовая среда https://tsolutions.worldclass.ru/API/hs/external\n",
+    "description": "Публичная часть API для интеграции с внешними сервисами",
     "version": "1.0",
     "title": "API WorldClass",
     "termsOfService": "",
