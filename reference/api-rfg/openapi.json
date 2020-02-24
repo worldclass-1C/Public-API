@@ -119,8 +119,10 @@
                   "description": "идентификатор описания услуги"
                 },
                 "employeeId": {
-                  "type": "string",
-                  "default": "",
+                  "type": [
+                    "string",
+                    "number"
+                  ],
                   "description": "идентификатор сотрудника"
                 }
               },
