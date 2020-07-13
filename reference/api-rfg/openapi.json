@@ -446,6 +446,357 @@
       },
       "parameters": []
     },
+    "/events/feedback": {
+      "post": {
+        "summary": "Регистрация обратной связи",
+        "operationId": "feedback",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "string",
+                  "description": "В настоящее время используется строковая константа \"Ok\""
+                },
+                "description": {
+                  "type": "string"
+                },
+                "requestToken": {
+                  "type": "string",
+                  "description": "Номер созданного бизнес-процесса"
+                }
+              },
+              "required": [
+                "requestToken"
+              ]
+            }
+          }
+        },
+        "description": "Регистрация обратной связи: создание задач для сотрудников, создание новых профилей клиентов по переданным контактным данным, уточнение контактных данных в найденных профилях.\n\nОтветственный: Гусев Алексей",
+        "parameters": [
+          {
+            "type": "string",
+            "in": "header",
+            "name": "content-type",
+            "description": "MIME-тип",
+            "x-deprecated": false
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "request",
+            "description": "Имя запроса"
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "language",
+            "description": "Язык интерфейса клиента"
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "brand",
+            "description": "Бренд"
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "auth-key",
+            "description": "Токен"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "gymId": {
+                  "type": "string",
+                  "description": "Идентификатор клуба"
+                },
+                "directionId": {
+                  "type": "string",
+                  "description": "Идентификатор должности"
+                },
+                "requestTypeId": {
+                  "type": "string",
+                  "description": "Идентификатор типа обращения"
+                },
+                "membershipTypeId": {
+                  "type": "string",
+                  "description": "Тип контракта: 1-индивидуальный, 2-корпоративный"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "Содержание обращения"
+                },
+                "content2...contentn": {
+                  "type": "string",
+                  "description": "Части содержимого обращения, при невозможности уместить все в одном параметре"
+                },
+                "currentTime": {
+                  "type": "string",
+                  "description": "Текущая дата сеанса клиента"
+                },
+                "company": {
+                  "type": "string",
+                  "description": "Название компании"
+                },
+                "userId": {
+                  "type": "string",
+                  "description": "Идентификатор клиента (uid элемента справочника контрагенты)"
+                },
+                "lastName": {
+                  "type": "string",
+                  "description": "Фамилия"
+                },
+                "firstName": {
+                  "type": "string",
+                  "description": "Имя"
+                },
+                "secondName": {
+                  "type": "string",
+                  "description": "Отчество"
+                },
+                "phone": {
+                  "type": "string",
+                  "description": "Телефон"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "e-mail"
+                },
+                "referer": {
+                  "type": "string",
+                  "description": "UTM-метки"
+                },
+                "tildaspecreferer": {
+                  "type": "string",
+                  "description": "Реферер запроса с сайта"
+                },
+                "tildaspecformid": {
+                  "type": "string",
+                  "description": "Идентификатор формы на сайте"
+                },
+                "tildaspecformname": {
+                  "type": "string",
+                  "description": "Имя формы на сайте"
+                },
+                "tildaspecpageid": {
+                  "type": "string",
+                  "description": "Идентификатор страницы сайта"
+                },
+                "tildaspecprojectid": {
+                  "type": "string",
+                  "description": "Идентификатор проекта"
+                }
+              },
+              "required": [
+                "currentTime",
+                "lastName",
+                "firstName",
+                "phone"
+              ]
+            }
+          }
+        ]
+      }
+    },
+"/lists/feedbackCatalog": {
+      "post": {
+        "summary": "Справочники обратной связи",
+        "tags": [
+          "Lists"
+        ],
+        "responses": {},
+        "operationId": "get-lists-feedbackCatalog",
+        "description": "Получает справочники обратной связи\nОтветственный Калиниченко Н (69691, kalinichenkoNP@wclass.ru)",
+        "parameters": [
+          {
+            "type": "string",
+            "in": "header",
+            "name": "content-type",
+            "required": true
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "request",
+            "required": true,
+            "description": "имя запроса"
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "language",
+            "required": true,
+            "description": "язык"
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "brand",
+            "required": true,
+            "description": "бренд"
+          },
+          {
+            "type": "string",
+            "in": "header",
+            "name": "auth-key",
+            "required": true,
+            "description": "токен"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "requestTypeList": {
+                  "type": "array",
+                  "description": "ТипыОбращенияКонтрагентов",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string",
+                        "description": "ГУИД"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "ИМЯ"
+                      }
+                    },
+                    "required": [
+                      "uid",
+                      "name"
+                    ]
+                  }
+                },
+                "directionList": {
+                  "type": "array",
+                  "description": "МассивДолжностей",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "uid",
+                      "name"
+                    ]
+                  }
+                },
+                "requestSubjectList": {
+                  "type": "array",
+                  "description": "МассивТематик",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "uid",
+                      "name"
+                    ]
+                  }
+                },
+                "membershipTypeList": {
+                  "type": "array",
+                  "description": "МассивТипов абонементов",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "uid",
+                      "name"
+                    ]
+                  }
+                },
+                "taskMapping": {
+                  "type": "array",
+                  "description": "МассивМаршрутов",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "requestTypeId": {
+                        "type": "string",
+                        "description": "тип обращения контрагентов"
+                      },
+                      "directionId": {
+                        "type": "string",
+                        "description": "гуид направления"
+                      },
+                      "requestSubjectId": {
+                        "type": "string",
+                        "description": "гуид тематики"
+                      },
+                      "membershipTypeId": {
+                        "type": "string",
+                        "description": "тип абонемента"
+                      }
+                    },
+                    "required": [
+                      "requestTypeId",
+                      "directionId",
+                      "requestSubjectId",
+                      "membershipTypeId"
+                    ]
+                  }
+                },
+                "dataSourceList": {
+                  "type": "array",
+                  "description": "источники информации",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "uid",
+                      "name"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "requestTypeList",
+                "directionList",
+                "requestSubjectList",
+                "membershipTypeList",
+                "taskMapping",
+                "dataSourceList"
+              ]
+            }
+          }
+        ]
+      }
+    },
     "/lists/gymList": {
       "post": {
         "summary": "список клубов - 5.5; 20.1 (CONNECT)",
