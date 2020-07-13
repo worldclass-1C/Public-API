@@ -471,7 +471,9 @@
               "required": [
                 "requestToken"
               ]
-            }
+            },
+            "examples": {},
+            "headers": {}
           }
         },
         "description": "Регистрация обратной связи: создание задач для сотрудников, создание новых профилей клиентов по переданным контактным данным, уточнение контактных данных в найденных профилях.\n\nОтветственный: Гусев Алексей",
@@ -481,31 +483,47 @@
             "in": "header",
             "name": "content-type",
             "description": "MIME-тип",
-            "x-deprecated": false
+            "x-deprecated": false,
+            "required": true,
+            "default": "application/json"
           },
           {
             "type": "string",
             "in": "header",
             "name": "request",
-            "description": "Имя запроса"
+            "description": "Имя запроса",
+            "required": true,
+            "default": "feedback"
           },
           {
             "type": "string",
             "in": "header",
             "name": "language",
-            "description": "Язык интерфейса клиента"
+            "description": "Язык интерфейса клиента",
+            "required": true,
+            "default": "En"
           },
           {
             "type": "string",
             "in": "header",
             "name": "brand",
-            "description": "Бренд"
+            "description": "Бренд",
+            "default": "WorldClass",
+            "x-deprecated": false,
+            "allowEmptyValue": false,
+            "pattern": "",
+            "minLength": "",
+            "maxLength": "",
+            "required": true
           },
           {
             "type": "string",
             "in": "header",
             "name": "auth-key",
-            "description": "Токен"
+            "description": "Токен",
+            "pattern": "",
+            "required": true,
+            "default": "fac27165-c295-11ea-bbc2-005056b11c47242"
           },
           {
             "in": "body",
@@ -592,6 +610,10 @@
                 "tildaspecprojectid": {
                   "type": "string",
                   "description": "Идентификатор проекта"
+                },
+                "requestSubjectId": {
+                  "type": "string",
+                  "description": "Тема обращения"
                 }
               },
               "required": [
@@ -602,9 +624,6 @@
               ]
             }
           }
-        ],
-        "tags": [
-          "events"
         ]
       }
     },
