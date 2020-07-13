@@ -602,10 +602,13 @@
               ]
             }
           }
+        ],
+        "tags": [
+          "events"
         ]
       }
     },
-"/lists/feedbackCatalog": {
+    "/lists/feedbackCatalog": {
       "post": {
         "summary": "Справочники обратной связи",
         "tags": [
