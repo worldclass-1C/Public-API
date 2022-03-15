@@ -31,6 +31,8 @@ tags:
   - name: Cache
   - name: KPO
   - name: Polls
+  - name: Rooms
+  - name: NetMonet
   - name: All methods
 paths:
   /general/config:
@@ -2366,6 +2368,9 @@ paths:
                 enum:
                   - male
                   - female
+              employeeCode:
+                type: string
+                description: код сотрудника
             required:
               - uid
               - firstName
@@ -2935,6 +2940,326 @@ paths:
     x-restlet:
       section: Schedules
     parameters: []
+  /schedules/gymScheduleNew:
+    post:
+      summary: расписание занятий в клубе/клубах - 18.1 (CONNECT)
+      description: |-
+        Возвращает расписание групповых программ в клубе/клубах
+
+        Точки входа в метод:
+        1. Непосредственно по кнопке в командной панели
+        2. Из описания сотрудника
+        3. Из описания услуги
+
+        Ответственный Наталья Калиниченко (69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: gymScheduleNew
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              gymList:
+                type: array
+                default:
+                  - cc35e9c2-d155-11e4-80d1-005056810138
+                description: список идентификаторов клубов
+                items:
+                  type: string
+              startDate:
+                type: string
+                description: дата начала
+                format: date
+                example: '2019-10-01T13:00:00'
+              endDate:
+                type: string
+                description: дата окончания
+                format: date
+                example: '2019-10-15T00:00:00'
+              serviceDescriptionId:
+                type: string
+                default: ''
+                description: идентификатор описания услуги
+              employeeId:
+                type: string
+                default: ''
+                description: идентификатор сотрудника
+              docId:
+                type: string
+                description: идентификатор документа
+            required:
+              - gymList
+              - startDate
+              - endDate
+          x-examples: { }
+          description: ''
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              gymList:
+                type: array
+                description: список идентификаторов клубов
+                items:
+                  type: string
+              startDate:
+                type: string
+                format: date
+                description: дата начала
+                example: '2019-07-01T13:00:00'
+              endDate:
+                type: string
+                format: date
+                description: дата окончания
+                example: '2019-07-15T00:00:00'
+              serviceDescriptionId:
+                type: string
+                description: идентификатор описания услуги
+              groupType:
+                type: string
+                enum:
+                  - gym
+                  - online
+                  - outdoor
+                  - studio
+                description: тип клуба
+              employeeId:
+                type: string
+                description: идентификатор сотрудника
+            required:
+              - gymList
+              - startDate
+              - endDate
+          x-examples:
+            example-1: { }
+          description: ''
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                docId:
+                  type: string
+                  description: идентификатор документа группового занятия
+                date:
+                  description: время начала группового занятия
+                  type: string
+                groupType:
+                  description: тип клуба
+                  type: string
+                  enum:
+                    - gym
+                    - online
+                    - studio
+                    - outdoor
+                service:
+                  type: object
+                  description: описание услуги
+                  required:
+                    - uid
+                    - name
+                    - shortDescription
+                    - photo
+                    - tagList
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор описания услуги
+                    name:
+                      type: string
+                      description: наименование описания услуги
+                    shortDescription:
+                      type: string
+                      description: краткое описания услуги
+                    photo:
+                      type: string
+                      description: URL фотографии
+                    tagList:
+                      type: array
+                      description: теги
+                      items:
+                        $ref: '#/definitions/tag'
+                isPreBooked:
+                  type: boolean
+                  description: требуется предварительная запись
+                isPrePaid:
+                  type: boolean
+                  description: требуется предварительная оплата
+                onlyWithParents:
+                  type: boolean
+                  description: при обязательном участии родителей
+                onlyMembers:
+                  type: boolean
+                  description: только члены клуба
+                duration:
+                  type: number
+                  description: длительность занятия
+                employee:
+                  type: object
+                  description: сотрудник
+                  required:
+                    - uid
+                    - firstName
+                    - lastName
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор сотрудника
+                    firstName:
+                      type: string
+                      description: имя
+                    lastName:
+                      type: string
+                      description: фамилия
+                room:
+                  type: object
+                  description: наименование помещения
+                  required:
+                    - uid
+                    - name
+                    - latitude
+                    - longitude
+                  properties:
+                    uid:
+                      type: string
+                    name:
+                      type: string
+                    latitude:
+                      type: number
+                    longitude:
+                      type: number
+                ageMin:
+                  type: number
+                  description: 'минимальный возраст,  в месяцах'
+                ageMax:
+                  type: number
+                  description: 'максимальный возраст,  в месяцах'
+                studentLevel:
+                  type: string
+                  description: уровень подготовки
+                  enum:
+                    - any
+                    - high
+                    - medium
+                    - beginner
+                serviceKindName:
+                  type: string
+                  description: вид деятельности
+                gym:
+                  type: object
+                  description: клуб
+                  required:
+                    - uid
+                    - name
+                  properties:
+                    uid:
+                      type: string
+                    name:
+                      type: string
+                recorded:
+                  type: boolean
+                  description: клиент записан на урок
+                canCancel:
+                  type: boolean
+                  description: клиент может отменить запись на урок
+                canRecord:
+                  type: boolean
+                  description: клиент может записаться на урок
+                availablePlaces:
+                  type: number
+                  description: количество доступных мест
+                price:
+                  type: number
+                  description: 'цена, если 0, то ставим неопределено'
+                externalRefs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: тип ресурса
+                        enum:
+                          - youtube
+                          - instagram
+                      ref:
+                        type: string
+                        description: ссылка на ресурс
+                    required:
+                      - type
+                      - ref
+                urlZoom:
+                  type: string
+                  description: ссылка на Zoom
+              required:
+                - docId
+                - date
+                - service
+                - isPreBooked
+                - isPrePaid
+                - onlyWithParents
+                - onlyMembers
+                - duration
+                - employee
+                - room
+                - ageMin
+                - ageMax
+                - studentLevel
+                - serviceKindName
+                - gym
+                - recorded
+                - canCancel
+                - canRecord
+                - availablePlaces
+                - groupType
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Schedules
+      operationId: gymScheduleNew
+    x-restlet:
+      section: Schedules
+    parameters: [ ]
   /schedules/userActivity:
     post:
       summary: активности пользователя 15.1
@@ -3923,6 +4248,9 @@ paths:
                 isMyCoach:
                   type: boolean
                   description: это мой персональный тренер
+                cashlessTips:
+                  type: boolean
+                  description: подключен к системе безналичных чаевых
                 categoryList:
                   type: array
                   description: категории сотрудников
@@ -5273,6 +5601,7 @@ paths:
     x-restlet:
       section: Customers
     parameters: []
+
   /customers/membershipFreezeList:
     post:
       summary: прайс лист заморозок  - 8.19.3
@@ -5368,6 +5697,119 @@ paths:
     x-restlet:
       section: Customers
     parameters: []
+
+  /catalog/addProducts:
+    post:
+      summary: загрузка товарных позиций из системы УТ 11
+      description: |-
+        Используется для загрузки данных по номенклатуре товара в кпо для дальшейшей продажи клиентам
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+              description:
+                type: string
+                default: Ok
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+        x-examples: { }
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: membershipFreezeList
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            default: [ ]
+            description: список номенклатуры
+            items:
+              properties:
+                uid:
+                  type: string
+                  description: идентификатор номенклатуры
+                  example: cc35e9b2-d155-11e4-80d1-005056810138
+                groupUid:
+                  type: string
+                  description: идентификатор группы номенклатуры
+                  example: cc35e9b2-d155-11e4-80d1-005056810138
+                isGroup:
+                    type: boolean
+                    description: признак группы текущего элемента
+                    example: true
+                isDelete:
+                    type: boolean
+                    description: признак группы текущего элемента
+                    example: true
+                name:
+                      type: string
+                      description: наименование элемента
+                      example: Крем для лица
+                vatRate:
+                  type: string
+                  description: ставка НДС
+                  example: НДС20
+                  enum:
+                    - НДС20
+                    - БезНДС
+                    - НДС0
+                    - НДС12
+                    - НДС18
+                    - НДС18_118
+                    - НДС10_110
+                productType:
+                  type: string
+                  description: тип номенклатуры
+                  example: Товар
+                  enum:
+                    - Товар
+                    - Инвентарь
+                    - Оборудование
+                barcode:
+                  type: string
+                  description: штрихкод
+                  example: 1234567890
+                articleNumber:
+                  type: string
+                  description: артикул
+                  example: 1234567890
+
+              required:
+                - uid
+                - groupUid
+                - isGroup
+                - name
+                - vatRate
+                - productType
+    x-restlet:
+      section: events
+    parameters: [ ]
+
   /events/scheduleRegistration:
     post:
       summary: регистрация на групповое занятие - 18.1
@@ -7712,6 +8154,77 @@ paths:
           description: ''
       tags:
         - Customers
+
+  /customers/signaturedocs:
+    post:
+      summary: Подписанные документы клиента
+      operationId: signaturedocs
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - type: string
+          in: header
+          name: request
+          required: true
+          description: имя запроса
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              printObjectGUID:
+                type: string
+                description: Идентификатор объекта
+      responses:
+        '200':
+              description: Выполнение запроса завершилось успешно
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    printDoc:
+                      type: string
+                      description: Объект документа
+                    createDate:
+                      type: string
+                      description: дата регистрации документа
+                    docLink:
+                      type: string
+                      description: ссылка на документ в формате pdf
+                  required:
+                    - printDoc
+                    - createDate
+                    - docLink
+        '401':
+              description: Пользователь не идентифицирован
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    enum:
+                      - userNotIdentified
+                  description:
+                    type: string
+                    default: User not identified
+        '403':
+              description: Выполнение запроса завершилось ошибкой
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: код ошибки
+                  description:
+                    type: string
+                    description: описание ошибки
+      x-examples: { }
+      tags:
+        - Customers
+
   /info/eventInfo:
     post:
       summary: описание события - 15.2.1 - 15.2.3
@@ -11408,23 +11921,11 @@ paths:
     put:
       summary: провести автоплатеж
       operationId: autoPayment
-      responses:
-        '200':
-          description: OK
-          schema:
-            type: object
-            properties:
-              result:
-                type: string
-                enum:
-                  - Ok
-                  - fail
-                description: успешно
-            required:
-              - result
       tags:
         - Payment
         - KPO
+      consumes:
+        - application/json
       description: |-
         Проводит атоматическое списание суммы с привязаной карты клиента
         Ответственный Калиниченко Н.
@@ -11456,6 +11957,266 @@ paths:
               card:
                 type: string
                 description: идентификатор карты
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - Ok
+                  - fail
+                description: успешно
+            required:
+              - result
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+    x-restlet:
+     section: Customers
+    parameters: [ ]
+
+  /rooms/getRooms:
+    post:
+      summary: список помещений по клубу - для визуализации раздевалок
+      operationId: getRooms
+      description: |-
+        список помещений по клубу - для визуализации раздевалок
+        идентификатор клуба указывается в url: https://solutions.worldclass.ru/API/hs/external/{идентификатор клуба}
+        Ответственный Калиниченко Наталья(69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Rooms
+        - KPO
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          type: string
+          description: наименование запроса
+          default: rooms
+          required: true
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              required:
+                - roomName
+                - roomid
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  description: идентификатор помещения
+                  minLength: 36
+                  maxLength: 36
+                roomName:
+                  type: string
+                  description: наименование помещения
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+    x-restlet:
+      section: Rooms
+    parameters: [ ]
+
+  /rooms/boxState:
+    post:
+      summary: состояние ячеек в помещении - для визуализации раздевалок
+      description: |-
+        состояние ячеек в помещении - для визуализации раздевалок
+
+        Ответственный Калиниченко Наталья(69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Rooms
+        - KPO
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          type: string
+          description: наименование запроса
+          default: boxState
+          required: true
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              required:
+                - gymId
+                - roomid
+                - boxId
+                - state
+              type: object
+              properties:
+                roomId:
+                  type: string
+                  description: идентификатор помещения
+                  minLength: 36
+                  maxLength: 36
+                gymId:
+                  type: string
+                  description: идентификатор клуба
+                  minLength: 36
+                  maxLength: 36
+                boxId:
+                  type: string
+                  description: идентификатор ячейки
+                  minLength: 36
+                  maxLength: 36
+                state:
+                  type: string
+
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+
+    x-restlet:
+      section: Rooms
+    parameters: [ ]
+
+  /api/code:
+    get:
+      summary: проверка валидности ссылки на страницу сотрудника
+      description: |-
+        проверка валидности ссылки на страницу сотрудника в сервисе netMonet - сторонний сервис
+
+        сервер: netmonet.co
+        Ответственный Калиниченко Наталья(69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - NetMonet
+      parameters:
+        - $ref: '#/parameters/content-type'
+
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: тип сотрудника
+                data:
+                  type: object
+                  description: данные сотрудника
+                  properties:
+                    id:
+                      type: string
+                      description: код сотрудника
+                    firstName:
+                      type: string
+                      description: фамилия
+                    lastName:
+                      type: string
+                      description: имя
+                    wish:
+                      type: string
+                      description: пожелание
+                    image:
+                      type: string
+                      description: ссылка на фото
+                    workPlace:
+                      type: string
+                      description: место работы
+                    workPlaceId:
+                      type: string
+                      description: идентификатор места работы
+                    acquiringType:
+                      type: string
+                      description: тип платежной системы
+                    udcPercent:
+                      type: string
+                      description: процент комиссии
+        '404':
+          description: Страница не найдена
+          schema:
+            type: object
+            properties:
+              errorType:
+                type: string
+                description: код ошибки
+              message:
+                type: string
+                description: сообщение
+    x-restlet:
+      section: NetMonet
+    parameters: [ ]
+
+  /tip/idemployee:
+    get:
+        summary: получение страницы сотрудника для чаевых
+        description: |-
+          получение страницы сотрудника для чаевых в сервисе netMonet - сторонний сервис
+
+          сервер: netmonet.co
+          Ответственный Калиниченко Наталья(69691/KalinichenkoNP@wclass.ru)
+        consumes:
+          - application/json
+        produces:
+          - application/json
+        tags:
+          - NetMonet
+        parameters:
+          - $ref: '#/parameters/content-type'
+
+        responses:
+          '200':
+            description: Выполнение запроса завершилось успешно, возвращена html страница
+          '404':
+            description: Страница не найдена
+    x-restlet:
+     section: NetMonet
+    parameters: [ ]
 
   /events/registrationConfirm:
     post:
