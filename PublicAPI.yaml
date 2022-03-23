@@ -12191,6 +12191,69 @@ paths:
     x-restlet:
       section: NetMonet
     parameters: [ ]
+  /lists/bannersList:
+    post:
+      summary: список баннеров главной страницы
+      description: |-
+        По коду сети возвращает список баннеров фото и видео контента
+        Ответственный Калиниченко Наталья(69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Lists
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          type: string
+          description: наименование запроса
+          default: bannersList
+          required: true
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              chain:
+                type: string
+                description: код сети
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              imageURL:
+                type: string
+                description: ссылка на фото
+              videoURL:
+                type: string
+                description: ссылка на видео
+              text:
+                type: string
+                description: текст баннера
+              order:
+                type: number
+                description: порядок следования фото/видео
+        '404':
+          description: Страница не найдена
+          schema:
+            type: object
+            properties:
+              errorType:
+                type: string
+                description: код ошибки
+              message:
+                type: string
+                description: сообщение
+    x-restlet:
+      section: Lists
+    parameters: [ ]
 
   /tip/idemployee:
     get:
