@@ -3181,6 +3181,9 @@ paths:
                 canCancel:
                   type: boolean
                   description: клиент может отменить запись на урок
+                cancelPeriod:
+                  type: number
+                  description: количество времени за которое можно отменить занятие в секундах
                 canRecord:
                   type: boolean
                   description: клиент может записаться на урок
@@ -7702,6 +7705,7 @@ paths:
           required: true
         - $ref: '#/parameters/language'
         - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
         - name: body
           in: body
           required: true
@@ -8191,6 +8195,9 @@ paths:
                     createDate:
                       type: string
                       description: дата регистрации документа
+                    signDate:
+                      type: string
+                      description: дата подписи документа
                     docLink:
                       type: string
                       description: ссылка на документ в формате pdf
