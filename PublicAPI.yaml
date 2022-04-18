@@ -2357,6 +2357,17 @@ paths:
                 description: список URL фотографий
                 items:
                   type: string
+              objectiveList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор цели
+                    name:
+                      type: string
+                      description: наименование цели
               tagList:
                 type: array
                 description: список тегов
@@ -3093,6 +3104,17 @@ paths:
                     photo:
                       type: string
                       description: URL фотографии
+                    objectiveList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          uid:
+                            type: string
+                            description: идентификатор цели
+                          name:
+                            type: string
+                            description: наименование цели
                     tagList:
                       type: array
                       description: теги
@@ -3130,6 +3152,17 @@ paths:
                     lastName:
                       type: string
                       description: фамилия
+                    objectiveList:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          uid:
+                            type: string
+                            description: идентификатор цели
+                          name:
+                            type: string
+                            description: наименование цели
                 room:
                   type: object
                   description: наименование помещения
@@ -3924,6 +3957,142 @@ paths:
     x-restlet:
       section: Lists
     parameters: []
+  /lists/objectiveList:
+    post:
+      summary: справочник целей
+      description: |-
+        Возвращает список целей
+
+        Ответственный Калиниченко Наталья
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: objectiveList
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              uid:
+                type: string
+                description: 'идентификатор цели'
+              name:
+                type: string
+                description: наименование
+              description:
+                type: string
+                description: описание цели
+              order:
+                type: number
+                description: порядок для сортировки
+
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Lists
+      operationId: objectiveList
+    x-restlet:
+      section: Lists
+    parameters: [ ]
+  /customers/clientObjectives:
+    post:
+      summary: цели клиента
+      description: |-
+        Возвращает массив целей клиента
+
+        Ответственный Калиниченко Наталья
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: clientObjectives
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: 'идентификатор цели'
+                name:
+                  type: string
+                  description: наименование
+
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Customers
+      operationId: clientObjectives
+    x-restlet:
+      section: Lists
+    parameters: [ ]
   /lists/cancelcausesList:
     post:
       summary: список причин отмены записи (CONNECT)
@@ -4483,6 +4652,17 @@ paths:
                       - name
                       - serviceKind
                       - serviceType
+                objectiveList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор цели
+                      name:
+                        type: string
+                        description: наименование цели
                 gender:
                   type: string
                   enum:
@@ -5191,6 +5371,17 @@ paths:
                       - name
                       - serviceKind
                       - serviceType
+                objectiveList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор цели
+                      name:
+                        type: string
+                        description: наименование цели
               required:
                 - uid
                 - firstName
@@ -5320,6 +5511,17 @@ paths:
                   enum:
                     - spa
                     - fitness
+                objectiveList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор цели
+                      name:
+                        type: string
+                        description: наименование цели
               required:
                 - serviceKind
                 - entryList
@@ -7653,6 +7855,17 @@ paths:
                     required:
                       - uid
                       - entryType
+                objectiveList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор цели
+                      name:
+                        type: string
+                        description: наименование цели
                 price:
                   type: number
                   description: 'цена, если отсутствует - не отображать, если =0 бесплатная'
@@ -7764,6 +7977,17 @@ paths:
               name:
                 type: string
                 description: наименоване услуги
+              objectiveList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор цели
+                    name:
+                      type: string
+                      description: наименование цели
               tagList:
                 type: array
                 description: список тегов
