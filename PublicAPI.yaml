@@ -3436,6 +3436,213 @@ paths:
     x-restlet:
       section: Schedules
     parameters: []
+  /schedules/userActivityNew:
+    post:
+      summary: активности пользователя 15.1
+      description: |-
+        отображает список всех активностей пользователя за период (посещение, тренировки, услуги СПА)
+
+        Ответственный Наталья Калиниченко (69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: userActivityNew
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - endDate
+              - startDate
+            properties:
+              startDate:
+                type: string
+                format: date
+                description: дата начала
+                example: '2019-07-01T13:00:00'
+              endDate:
+                type: string
+                format: date
+                description: дата окончания
+                example: '2019-07-15T00:00:00'
+          x-examples: { }
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                  description: дата начала
+                endDate:
+                  type: string
+                  format: date
+                  description: дата окончания
+                gym:
+                  type: object
+                  description: клуб
+                  required:
+                    - uid
+                    - name
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор клуба
+                    name:
+                      type: string
+                      description: наименование клуба
+                    type:
+                      type: string
+                      enum:
+                        - outdoor
+                        - gym
+                        - online
+                        - studio
+                      description: тип клуба
+                room:
+                  type: object
+                  description: помещение
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор помещения
+                    name:
+                      type: string
+                      description: наименование
+                  required:
+                    - uid
+                    - name
+                serviceList:
+                  type: array
+                  description: список услуг
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор описания услуги
+                      name:
+                        description: наименование описания услуги
+                        type: string
+                      debt:
+                        type: boolean
+                        description: долг
+                      quantity:
+                        type: integer
+                        description: Количество услуг
+                      photo:
+                        type: string
+                        description: Фото услуги
+                      paymentStatus:
+                        type: string
+                        enum:
+                          - inProgress
+                          - debt
+                          - paid
+                        description: статус оплаты
+
+                    required:
+                      - uid
+                      - name
+                      - debt
+                      - quantity
+                employee:
+                  type: object
+                  description: сотрудник
+                  properties:
+                    uid:
+                      type: string
+                      description: уникальный идентификатор
+                    firstName:
+                      type: string
+                      description: имя
+                    lastName:
+                      type: string
+                      description: фамилия
+                    photo:
+                      type: string
+                      description: фото сотрудника
+                  required:
+                    - uid
+                    - firstName
+                    - lastName
+                docId:
+                  type: string
+                  description: Идентификатор документа (для расшифровки)
+                docType:
+                  type: string
+                  description: Тип документа (для расшифровки)
+                  enum:
+                    - personal
+                    - group
+                    - visit
+                    - guestVisit
+                canCancel:
+                  type: boolean
+                  description: Признак возможной отмены
+                paymentStatus:
+                  type: string
+                  enum:
+                    - inProgress
+                    - debt
+                    - paid
+                servicePhoto:
+                  type: string
+                  description: Фото услуги, если в документе более 1 услуги, будет выводиться одна из
+              required:
+                - startDate
+                - endDate
+                - gym
+                - serviceList
+                - docId
+                - docType
+          examples:
+            application/json: список активностей
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Schedules
+      operationId: userActivityNew
+    x-restlet:
+      section: Schedules
+    parameters: [ ]
   /lists/gymList:
     post:
       summary: список клубов - 5.5; 20.1 (CONNECT)
