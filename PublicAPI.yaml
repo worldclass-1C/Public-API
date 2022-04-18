@@ -7038,6 +7038,79 @@ paths:
     x-restlet:
       section: Payment
     parameters: []
+  /payment/paymentStatusNew:
+    post:
+      summary: статус оплаты ордера
+      description: |-
+        Инициирует связь с банком и возвращает статус оплаты по идентификатору ордера
+
+        Ответственный Калиниченко Наталья
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: paymentStatusNew
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              uid:
+                type: string
+                description: идентификатор заказа
+            required:
+              - uid
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - ok
+                  - fail
+                  - inProgress
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      operationId: paymentStatusNew
+      tags:
+        - Payment
+    x-restlet:
+      section: Payment
+    parameters: [ ]
   /payment/unBindCard:
     post:
       summary: отвязать карту 5.2
