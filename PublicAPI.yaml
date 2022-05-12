@@ -4134,6 +4134,12 @@ paths:
                 name:
                   type: string
                   description: наименование
+                actual:
+                  type: boolean
+                  description: актуальность
+            required:
+              - uid
+              - actual
 
       responses:
         '200':
