@@ -3645,6 +3645,8 @@ paths:
                 - serviceList
                 - docId
                 - docType
+                - canCancel
+                - paymentStatus
           examples:
             application/json: список активностей
         '401':
@@ -3994,6 +3996,9 @@ paths:
               description:
                 type: string
                 description: описание цели
+              shortDescription:
+                type: string
+                description: краткое описание
               order:
                 type: number
                 description: порядок для сортировки
@@ -4090,6 +4095,86 @@ paths:
       tags:
         - Customers
       operationId: clientObjectives
+    x-restlet:
+      section: Lists
+    parameters: [ ]
+  /customers/setClientObjectives:
+    post:
+      summary: установить цели клиента
+      description: |-
+        устанавливает для клиента цели
+
+        Ответственный Калиниченко Наталья
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: setClientObjectives
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: 'идентификатор цели'
+                name:
+                  type: string
+                  description: наименование
+
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: результат запроса
+                enum:
+                  - ok
+                  - fail
+
+
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Customers
+      operationId: setClientObjectives
     x-restlet:
       section: Lists
     parameters: [ ]
@@ -4235,6 +4320,12 @@ paths:
                   description: символ национальной валюты
                 countryCode:
                   $ref: '#/definitions/countryCode'
+                phoneNumber:
+                  type: string
+                  description: номер телефона поддержки
+                email:
+                  type: string
+                  description: почта техподдержки
                 availableSections:
                   type: array
                   description: доступные разделы
@@ -6492,11 +6583,19 @@ paths:
                           amount:
                             type: number
                             description: возможная сумма оплаты
+                          order:
+                            type: number
+                            description: поле сортировки
+                          default:
+                            type: boolean
+                            description: тип оплаты по умолчанию
                         required:
                           - type
                           - name
                           - uid
                           - amount
+                          - order
+                          - default
                     deposits:
                       type: array
                       description: доступные клиенту авансы
