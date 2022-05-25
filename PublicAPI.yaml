@@ -6571,6 +6571,10 @@ paths:
                             type: string
                             description: тип платежной системы
                             enum:
+                              - applePay
+                              - googlePay
+                              - bankCard
+                              - qr
                               - mir
                               - americanExpress
                               - jcb
