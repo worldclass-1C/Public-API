@@ -3582,6 +3582,9 @@ paths:
                       photo:
                         type: string
                         description: Фото услуги
+                      price:
+                        type: number
+                        description: цена услуги
                       paymentStatus:
                         type: string
                         enum:
@@ -4326,7 +4329,7 @@ paths:
                   description: символ национальной валюты
                 countryCode:
                   $ref: '#/definitions/countryCode'
-                phoneNumber:
+                phone:
                   type: string
                   description: номер телефона поддержки
                 email:
