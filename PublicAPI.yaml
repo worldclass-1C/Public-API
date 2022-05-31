@@ -5515,6 +5515,136 @@ paths:
         - Lists
       operationId: employeeListForPrebooking
     parameters: []
+  /lists/employeeListForPrebookingNew:
+    x-restlet:
+      section: Lists
+    post:
+      summary: список сотрудников  для предварительного бронирования- 21.1
+      description: |-
+        Возвращает список сотрудников
+
+        Ответственный Калиниченко Наталья (69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: employeeListForPrebookingNew
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              uid:
+                type: string
+                description: идентификатор клуба
+                example: cc35e9c2-d155-11e4-80d1-005056810138
+              serviceId:
+                type: array
+                description: индентификаторы услуг
+              date:
+                type: string
+                format: date-time
+                description: желаемая дата услуги
+            required:
+              - uid
+          x-examples: { }
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: идентификатор сотрудника
+                firstName:
+                  type: string
+                  description: Имя
+                lastName:
+                  type: string
+                  description: Фамилия
+                photo:
+                  type: string
+                  description: URL фотографии
+                categoryList:
+                  type: array
+                  description: категории сотрудников
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: наименование категории сотрудника
+                      serviceKind:
+                        type: string
+                        description: наименование направления
+                      serviceType:
+                        type: string
+                        description: тип направления
+                        enum:
+                          - spa
+                          - fitness
+                    required:
+                      - name
+                      - serviceKind
+                      - serviceType
+                objectiveList:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор цели
+                      name:
+                        type: string
+                        description: наименование цели
+              required:
+                - uid
+                - firstName
+                - lastName
+                - photo
+                - categoryList
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      tags:
+        - Lists
+      operationId: employeeListForPrebookingNew
+    parameters: [ ]
   /lists/serviceListForPrebooking:
     x-restlet:
       section: Lists
@@ -12452,6 +12582,179 @@ paths:
     x-restlet:
       section: lists
     parameters: []
+  /lists/eventListNew:
+    post:
+      summary: список мероприятий
+      description: |-
+        Возвращает список мероприятий – для ЛК клиента
+
+        Ответственный Калиниченко Наталья (69691/KalinichenkoNP@wclass.ru)
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Lists
+        - Games
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          type: string
+          description: наименование запроса
+          default: eventListNew
+          required: true
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              games:
+                type: array
+                description: массив с данными игр
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор мероприятия (Справочник.Игры.ГУИД)
+                    name:
+                      type: string
+                      description: наименование мероприятия
+                    eventDate:
+                      type: string
+                      format: date
+                      description: дата мероприятия
+                      example: '2019-07-01T00:00:00'
+                    eventStartTime:
+                      type: string
+                      format: date
+                      description: время начала мероприятия
+                      example: '2019-07-01T13:00:00'
+                    eventEndTime:
+                      type: string
+                      format: date
+                      description: время окончания мероприятия
+                      example: '2019-07-01T13:00:00'
+                    regStartTime:
+                      type: string
+                      format: date
+                      description: время начала регистрации на мероприятие
+                      example: '2019-07-01T13:00:00'
+                    regEndTime:
+                      type: string
+                      format: date
+                      description: время окончания регистрации на мероприятие
+                      example: '2019-07-01T13:00:00'
+                    cityId:
+                      type: string
+                      description: сегмент клубов мероприятия
+                    eventPlace:
+                      type: string
+                      description: место проведения мероприятия
+                    isActive:
+                      type: boolean
+                      description: мероприятие активно
+                    isTeam:
+                      type: boolean
+                      description: командное мероприятие
+                    isOnline:
+                      type: boolean
+                      description: онлайн регистрация на мероприятие
+                    multiplyRegistration:
+                      type: boolean
+                      description: множественная регистрация на мероприятие
+                    description:
+                      type: string
+                      description: описание мероприятия
+                    totalCount:
+                      type: string
+                      description: количество участников мероприятия
+                    availableCount:
+                      type: string
+                      description: количество свободных мест мероприятия
+                    participationRules:
+                      type: string
+                      description: правила участия группы мероприятий (Справочник.Игры.ПравилаУчастия)
+                    registered:
+                      type: boolean
+                      description: клиент зарегистрирован на мероприятие / категорию мероприятия
+                    registrationIsAvailable:
+                      type: boolean
+                      description: доступна регистрация клиента на мероприятие / категорию мероприятия
+                    registrationLink:
+                      type: string
+                    photo:
+                      type: string
+                      description: фото
+                    photoList:
+                      type: array
+                      description: список URL фотографий
+                      items:
+                        type: string
+                    tagList:
+                      type: array
+                      description: список тегов
+                      items:
+                        $ref: '#/definitions/tag'
+                    categories:
+                      type: array
+                      description: массив с данными категорий игры
+                      items:
+                        type: object
+                        properties:
+                          uid:
+                            type: string
+                            description: идентификатор категории мероприятия (Справочник.Игры.Категории.ГУИД)
+                          name:
+                            type: string
+                            description: наименование категории мероприятия
+                          sex:
+                            type: string
+                            description: пол
+                          ageMin:
+                            type: string
+                            description: минимальный возраст
+                          ageMax:
+                            type: string
+                            description: максимальный возраст
+                          registered:
+                            type: boolean
+                            description: клиент зарегистрирован на категорию мероприятия
+                          registrationIsAvailable:
+                            type: boolean
+                            description: доступна регистрация клиента на категорию мероприятия
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      operationId: events
+    x-restlet:
+      section: lists
+    parameters: [ ]
   /customers/registrationList:
     post:
       summary: список мероприятий клиента - для МП сотрудника
