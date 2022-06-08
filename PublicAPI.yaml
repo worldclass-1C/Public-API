@@ -13117,7 +13117,7 @@ paths:
     x-restlet:
       section: NetMonet
     parameters: [ ]
-  /lists/bannersList:
+  /lists/bannerList:
     post:
       summary: список баннеров главной страницы
       description: |-
@@ -13135,7 +13135,7 @@ paths:
           in: header
           type: string
           description: наименование запроса
-          default: bannersList
+          default: bannerList
           required: true
         - $ref: '#/parameters/language'
         - $ref: '#/parameters/brand'
