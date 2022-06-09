@@ -1300,6 +1300,13 @@ paths:
                   enum:
                     - forUse - для использования
                     - forTransfer
+                experience:
+                  type: string
+                  description: стаж клиента
+                  enum:
+                    - New
+                    - Renew
+                    - Ex
                 owner:
                   type: object
                   description: Владелец абонемента
@@ -1397,6 +1404,7 @@ paths:
                 - paymentSchedule
                 - customerList
                 - canPurchaseFreezing
+                - experience
         '403':
           description: Выполнение запроса завершилось ошибкой
           schema:
