@@ -4279,7 +4279,7 @@ paths:
       description: |-
         Возвращает массив сетей подключенных к личному кабинету
 
-        Ответственный Давид Мелкумян
+        Ответственный Сизов Василий
       parameters:
         - name: content-type
           in: header
@@ -4343,6 +4343,9 @@ paths:
                 email:
                   type: string
                   description: почта техподдержки
+                timeZone:
+                  description: временная зона
+                  type: string
                 availableSections:
                   type: array
                   description: доступные разделы
