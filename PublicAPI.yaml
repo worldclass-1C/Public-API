@@ -3600,6 +3600,18 @@ paths:
                           - debt
                           - paid
                         description: статус оплаты
+                      objectiveList:
+                        type: array
+                        description: цели клиента
+                        items:
+                          type: object
+                          properties:
+                            uid:
+                              type: string
+                              description: идентификатор цели
+                            name:
+                              type: string
+                              description: наименование цели
 
                     required:
                       - uid
