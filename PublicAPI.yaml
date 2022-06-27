@@ -4110,7 +4110,34 @@ paths:
                 name:
                   type: string
                   description: наименование
-
+                description:
+                  type: string
+                  description: полное описание цели
+                shortdescription:
+                  type: string
+                  description: краткое описание цели
+                order:
+                  type: number
+                  description: порядок для сортировки
+                photo:
+                  type: string
+                  description: ссылка на главное фото цели
+                photoes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      URL:
+                        type: string
+                        description: ссылка на фото
+                videos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      URL:
+                        type: string
+                        description: ссылка на видео
         '401':
           description: Пользователь не идентифицирован
           schema:
