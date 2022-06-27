@@ -4177,7 +4177,7 @@ paths:
                   type: string
                   description: наименование
                 actual:
-                  type: boolean
+                  type: number
                   description: актуальность
             required:
               - uid
