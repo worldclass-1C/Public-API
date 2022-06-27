@@ -4025,6 +4025,25 @@ paths:
               order:
                 type: number
                 description: порядок для сортировки
+              photo:
+                type: string
+                description: главное фото
+              photoes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    URL:
+                      type: string
+                      description: ссылка на фото
+              videos:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    URL:
+                      type: string
+                      description: ссылка на видео
 
         '401':
           description: Пользователь не идентифицирован
@@ -6463,6 +6482,23 @@ paths:
                   type: string
                   description: артикул
                   example: 1234567890
+                isMarking:
+                  type: boolean
+                  description: признак маркируемого товара
+                  example: true
+                series:
+                  type: array
+                  description: массив серий номенклатуры
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор серии
+                      name:
+                        type: string
+                        description: наименование серии
+
 
               required:
                 - uid
@@ -12695,7 +12731,7 @@ paths:
                       type: string
                       description: описание мероприятия
                     totalCount:
-                      type: string
+                      type: number
                       description: количество участников мероприятия
                     availableCount:
                       type: string
