@@ -12759,7 +12759,7 @@ paths:
                       type: integer
                       description: количество участников мероприятия
                     availableCount:
-                      type: string
+                      type: integer
                       description: количество свободных мест мероприятия
                     participationRules:
                       type: string
