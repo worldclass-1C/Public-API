@@ -118,7 +118,7 @@ paths:
                     description: версия операционной системы
         '401':
           description: токен не валиден
-      operationId: '/general/config'
+      operationId: config
     x-restlet:
       section: General
     parameters: []
@@ -727,7 +727,7 @@ paths:
                 description: описание ошибки
       tags:
         - Users
-      operationId: '/user/accountProfile'
+      operationId: accountProfile
     x-restlet:
       section: Users
     parameters: []
@@ -875,7 +875,7 @@ paths:
                 description: описание ошибки
       tags:
         - Users
-      operationId: '/user/userProfile'
+      operationId: userProfile
     x-restlet:
       section: Users
     parameters: []
@@ -1028,7 +1028,7 @@ paths:
                 description: описание ошибки
       tags:
         - Users
-      operationId: '4'
+      operationId: userSummary
     x-restlet:
       section: Users
     parameters: []
