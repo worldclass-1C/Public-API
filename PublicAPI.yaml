@@ -1464,8 +1464,6 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-            type: array
-            items:
               type: object
               properties:
                 serviceList:
@@ -12600,10 +12598,10 @@ paths:
                       type: string
                       description: описание мероприятия
                     totalCount:
-                      type: string
+                      type: integer
                       description: количество участников мероприятия
                     availableCount:
-                      type: string
+                      type: integer
                       description: количество свободных мест мероприятия
                     participationRules:
                       type: string
@@ -12758,7 +12756,7 @@ paths:
                       type: string
                       description: описание мероприятия
                     totalCount:
-                      type: number
+                      type: integer
                       description: количество участников мероприятия
                     availableCount:
                       type: string
@@ -12803,10 +12801,10 @@ paths:
                             type: string
                             description: пол
                           ageMin:
-                            type: string
+                            type: integer
                             description: минимальный возраст
                           ageMax:
-                            type: string
+                            type: integer
                             description: максимальный возраст
                           registered:
                             type: boolean
