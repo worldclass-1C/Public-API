@@ -1087,6 +1087,9 @@ paths:
                     - invoice - чек
                     - personal - персональная тренировка
                     - group - групповой урок
+                docName:
+                  type: string
+                  description: наименование документа(для СПА)
                 amount:
                   type: number
                   description: сумма
@@ -1108,6 +1111,23 @@ paths:
                     name:
                       type: string
                       description: наименование клуба
+                employee:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      uid:
+                        type: string
+                        description: идентификатор тренера
+                      firstName:
+                        type: string
+                        description: Имя сотрудника
+                      secondName:
+                        type: string
+                        description: Фамилия сотрудника
+                      photo:
+                        type: string
+                        description: ссылка на фото
                 serviceList:
                   type: array
                   items:
@@ -1125,6 +1145,9 @@ paths:
                       amount:
                         type: number
                         description: сумма
+                      photo:
+                        type: string
+                        description: ссылка на фото услуги
                     required:
                       - name
                       - quantity
