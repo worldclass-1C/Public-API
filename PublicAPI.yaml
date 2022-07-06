@@ -1067,8 +1067,6 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-            type: array
-            items:
               type: object
               properties:
                 date:
