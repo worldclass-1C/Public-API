@@ -1073,7 +1073,6 @@ paths:
               properties:
                 date:
                   type: string
-                  format: date-time
                   description: Дата время оказания/продажи услуги
                 docId:
                   type: string
@@ -3750,7 +3749,6 @@ paths:
           description: ключи авторизации (токен)
           x-example: 4f1225f6-cb40-11e9-bba8-005056b11c47
           default:   4f1225f6-cb40-11e9-bba8-005056b11c47
-          maxLength: 36
         - name: body
           in: body
           required: true
@@ -5644,7 +5642,6 @@ paths:
                 description: индентификаторы услуг
               date:
                 type: string
-                format: date-time
                 description: желаемая дата услуги
             required:
               - uid
@@ -5774,7 +5771,6 @@ paths:
                 description: индентификатор сотрудника
               date:
                 type: string
-                format: date-time
                 description: желаемая дата услуги
               services:
                 type: array
@@ -6599,40 +6595,6 @@ paths:
               - docId
               - type
           x-examples: {}
-          description: ''
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              gymList:
-                type: array
-                description: список идентификаторов клубов
-                items:
-                  type: string
-              startDate:
-                type: string
-                format: date
-                description: дата начала
-                example: '2019-07-01T13:00:00'
-              endDate:
-                type: string
-                format: date
-                description: дата окончания
-                example: '2019-07-15T00:00:00'
-              serviceDescriptionId:
-                type: string
-                description: идентификатор описания услуги
-              employeeId:
-                type: string
-                description: идентификатор сотрудника
-            required:
-              - gymList
-              - startDate
-              - endDate
-          x-examples:
-            example-1: {}
           description: ''
       responses:
         '200':
@@ -8586,40 +8548,6 @@ paths:
               - date
           x-examples: {}
           description: ''
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              gymList:
-                type: array
-                description: список идентификаторов клубов
-                items:
-                  type: string
-              startDate:
-                type: string
-                format: date
-                description: дата начала
-                example: '2019-07-01T13:00:00'
-              endDate:
-                type: string
-                format: date
-                description: дата окончания
-                example: '2019-07-15T00:00:00'
-              serviceDescriptionId:
-                type: string
-                description: идентификатор описания услуги
-              employeeId:
-                type: string
-                description: идентификатор сотрудника
-            required:
-              - gymList
-              - startDate
-              - endDate
-          x-examples:
-            example-1: {}
-          description: ''
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
@@ -8678,7 +8606,7 @@ paths:
               description:
                 type: string
                 description: описание ошибки
-      operationId: ScheduleRegistration
+      operationId: personalScheduleRegistration
       tags:
         - Events
     x-restlet:
@@ -8801,7 +8729,7 @@ paths:
               description:
                 type: string
                 description: описание ошибки
-      operationId: ScheduleRegistration
+      operationId: visitRegistration
       tags:
         - Events
     x-restlet:
@@ -12858,7 +12786,7 @@ paths:
               description:
                 type: string
                 description: описание ошибки
-      operationId: events
+      operationId: eventsListNew
     x-restlet:
       section: lists
     parameters: [ ]
@@ -13259,20 +13187,22 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-            type: object
-            properties:
-              imageURL:
-                type: string
-                description: ссылка на фото
-              videoURL:
-                type: string
-                description: ссылка на видео
-              text:
-                type: string
-                description: текст баннера
-              order:
-                type: number
-                description: порядок следования фото/видео
+            type: array
+            items:
+              type: object
+              properties:
+                imageURL:
+                  type: string
+                  description: ссылка на фото
+                videoURL:
+                  type: string
+                  description: ссылка на видео
+                text:
+                  type: string
+                  description: текст баннера
+                order:
+                  type: number
+                  description: порядок следования фото/видео
         '404':
           description: Страница не найдена
           schema:
