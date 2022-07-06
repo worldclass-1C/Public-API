@@ -9448,40 +9448,6 @@ paths:
               - docId
           x-examples: {}
           description: ''
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              gymList:
-                type: array
-                description: список идентификаторов клубов
-                items:
-                  type: string
-              startDate:
-                type: string
-                format: date
-                description: дата начала
-                example: '2019-07-01T13:00:00'
-              endDate:
-                type: string
-                format: date
-                description: дата окончания
-                example: '2019-07-15T00:00:00'
-              serviceDescriptionId:
-                type: string
-                description: идентификатор описания услуги
-              employeeId:
-                type: string
-                description: идентификатор сотрудника
-            required:
-              - gymList
-              - startDate
-              - endDate
-          x-examples:
-            example-1: {}
-          description: ''
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
