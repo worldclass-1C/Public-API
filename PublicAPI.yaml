@@ -4025,42 +4025,44 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-            type: object
-            properties:
-              uid:
-                type: string
-                description: 'идентификатор цели'
-              name:
-                type: string
-                description: наименование
-              description:
-                type: string
-                description: описание цели
-              shortDescription:
-                type: string
-                description: краткое описание
-              order:
-                type: number
-                description: порядок для сортировки
-              photo:
-                type: string
-                description: главное фото
-              photoes:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    URL:
-                      type: string
-                      description: ссылка на фото
-              videos:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    URL:
-                      type: string
-                      description: ссылка на видео
+            type: array
+            items:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: 'идентификатор цели'
+                name:
+                  type: string
+                  description: наименование
+                description:
+                  type: string
+                  description: описание цели
+                shortDescription:
+                  type: string
+                  description: краткое описание
+                order:
+                  type: number
+                  description: порядок для сортировки
+                photo:
+                  type: string
+                  description: главное фото
+                photoes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      URL:
+                        type: string
+                        description: ссылка на фото
+                videos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      URL:
+                        type: string
+                        description: ссылка на видео
 
         '401':
           description: Пользователь не идентифицирован
@@ -5433,6 +5435,12 @@ paths:
                 description: идентификатор клуба
                 minLength: 36
                 maxLength: 36
+              weekdaysTime:
+                type: string
+                description: время работы в будни
+              holidaysTime:
+                type: string
+                description: время  работы в выходные и праздники
             required:
               - additional
               - metro
@@ -5638,6 +5646,8 @@ paths:
               serviceId:
                 type: array
                 description: индентификаторы услуг
+                items:
+                  type: string
               date:
                 type: string
                 description: желаемая дата услуги
