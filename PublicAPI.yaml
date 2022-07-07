@@ -8334,6 +8334,9 @@ paths:
                     uid:
                       type: string
                       description: идентификатор услуги
+                    gym:
+                      type: string
+                      description: идентификатор клуба
                     entryType:
                       type: string
                       description: тип услуги
