@@ -8326,6 +8326,9 @@ paths:
                 type: string
                 description: Идентификатор описания услуги
                 example: cc35e9b2-d155-11e4-80d1-005056810138
+              gym:
+                type: string
+                description: идентификатор клуба
               entryList:
                 type: array
                 items:
@@ -8347,7 +8350,7 @@ paths:
                         - lesson
                   required:
                     - uid
-                    - entryType
+        
           x-examples: {}
       responses:
         '200':
