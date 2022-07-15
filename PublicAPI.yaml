@@ -4047,6 +4047,9 @@ paths:
                 photo:
                   type: string
                   description: главное фото
+                color:
+                  type: string
+                  description: цвет
                 photoes:
                   type: array
                   items:
@@ -4697,6 +4700,9 @@ paths:
                 description: список URL фотографий описания пакетов услуг
                 items:
                   type: string
+              hasContract:
+                type: boolean
+                description: есть действующая карта
               packageList:
                 type: array
                 description: список пакетов услуг
@@ -8350,7 +8356,7 @@ paths:
                         - lesson
                   required:
                     - uid
-        
+
           x-examples: {}
       responses:
         '200':
