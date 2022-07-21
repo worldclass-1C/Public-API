@@ -13167,7 +13167,7 @@ paths:
             type: object
             properties:
               chain:
-                type: string
+                type: number
                 description: код сети
       responses:
         '200':
