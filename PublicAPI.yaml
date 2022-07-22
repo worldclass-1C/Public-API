@@ -2394,6 +2394,9 @@ paths:
                     name:
                       type: string
                       description: наименование цели
+                    color:
+                      type: string
+                      description: цвет
               tagList:
                 type: array
                 description: список тегов
@@ -3141,6 +3144,9 @@ paths:
                           name:
                             type: string
                             description: наименование цели
+                          color:
+                            type: string
+                            description: цвет
                     tagList:
                       type: array
                       description: теги
@@ -3189,6 +3195,9 @@ paths:
                           name:
                             type: string
                             description: наименование цели
+                          color:
+                            type: string
+                            description: цвет
                 room:
                   type: object
                   description: наименование помещения
@@ -3630,6 +3639,9 @@ paths:
                             name:
                               type: string
                               description: наименование цели
+                            color:
+                              type: string
+                              description: код цвета
 
                     required:
                       - uid
@@ -4857,6 +4869,9 @@ paths:
                       name:
                         type: string
                         description: наименование цели
+                      color:
+                        type: string
+                        description: цвет
                 gender:
                   type: string
                   enum:
@@ -5211,6 +5226,7 @@ paths:
                   enum:
                     - paid - 100%
                     - waiting
+                    - inProgress
                 reserve:
                   type: array
                   items:
@@ -5582,6 +5598,9 @@ paths:
                       name:
                         type: string
                         description: наименование цели
+                      color:
+                        type: string
+                        description: цвет
               required:
                 - uid
                 - firstName
@@ -5713,6 +5732,9 @@ paths:
                       name:
                         type: string
                         description: наименование цели
+                      color:
+                        type: string
+                        description: цвет
               required:
                 - uid
                 - firstName
@@ -5852,6 +5874,9 @@ paths:
                       name:
                         type: string
                         description: наименование цели
+                      color:
+                        type: string
+                        description: цвет
               required:
                 - serviceKind
                 - entryList
@@ -8264,6 +8289,9 @@ paths:
                       name:
                         type: string
                         description: наименование цели
+                      color:
+                        type: string
+                        description: цвет
                 price:
                   type: number
                   description: 'цена, если отсутствует - не отображать, если =0 бесплатная'
@@ -8392,6 +8420,9 @@ paths:
                     name:
                       type: string
                       description: наименование цели
+                    color:
+                      type: string
+                      description: цвет
               tagList:
                 type: array
                 description: список тегов
