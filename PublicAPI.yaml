@@ -4130,6 +4130,16 @@ paths:
         - $ref: '#/parameters/language'
         - $ref: '#/parameters/brand'
         - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: false
+          schema:
+            type: object
+            properties:
+              userId:
+                type: string
+                description: идентификатор клиента(для приложения тренера и вэб)
+        x-examples: {}
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
