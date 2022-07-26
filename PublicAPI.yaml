@@ -4139,7 +4139,7 @@ paths:
               userId:
                 type: string
                 description: идентификатор клиента(для приложения тренера и вэб)
-        x-examples: {}
+      x-examples: {}
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
@@ -12440,6 +12440,9 @@ paths:
               email:
                 type: string
                 description: e-mail клиента (сохраняется в карточке клиента)
+              customerId:
+                type: string
+                description: идентифкатор клиента(для вэб)
             required:
               - eventId
           x-examples:
@@ -12669,6 +12672,14 @@ paths:
         - $ref: '#/parameters/language'
         - $ref: '#/parameters/brand'
         - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              customerId:
+                type: string
+                description: идентификатор клиента (для вэб)
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
