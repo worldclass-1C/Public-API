@@ -13119,7 +13119,7 @@ paths:
       section: Rooms
     parameters: [ ]
 
-  /api/code:
+  /api/code/w23c2:
     get:
       summary: проверка валидности ссылки на страницу сотрудника
       description: |-
@@ -13256,7 +13256,7 @@ paths:
       section: Lists
     parameters: [ ]
 
-  /tip/idemployee:
+  /tip/w23c2/idemployee:
     get:
         summary: получение страницы сотрудника для чаевых
         description: |-
