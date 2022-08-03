@@ -10030,6 +10030,9 @@ paths:
                   endDate:
                     type: string
                     description: 'максимальная дата окончания, если осталось 30 дней'
+                  new:
+                    type: boolean
+                    description: стаж клиента
                 required:
                   - active
                   - waiting
@@ -10178,6 +10181,30 @@ paths:
               reserveBalance:
                 type: number
                 description: зарезервировано с депозита
+              clientObjectives:
+                type: array
+                items:
+                  description: объект
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор цели клиента
+              nearestEvent:
+                type: object
+                properties:
+                  uid:
+                    type: string
+                    description: идентификатор события
+                  name:
+                    type: string
+                    description: наименование события
+                  eventStart:
+                    type: string
+                    description: дата начала события
+                  eventEnd:
+                    type: string
+                    description: дата окончания события
         '401':
           description: Пользователь не идентифицирован
           schema:
