@@ -9993,6 +9993,8 @@ paths:
                     - paymentPackage
                     - rentedLockerList
                     - support
+                    - nearestEvent
+                    - clientObjectives
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
