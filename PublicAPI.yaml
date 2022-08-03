@@ -5237,6 +5237,7 @@ paths:
                     - paid - 100%
                     - waiting
                     - inProgress
+                    - confirming
                 reserve:
                   type: array
                   items:
