@@ -13149,7 +13149,7 @@ paths:
       section: Rooms
     parameters: [ ]
 
-  /api/code/w23c2:
+  /api/code/w23c2/idemployee:
     get:
       summary: проверка валидности ссылки на страницу сотрудника
       description: |-
