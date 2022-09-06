@@ -13015,6 +13015,64 @@ paths:
      section: Customers
     parameters: [ ]
 
+  /customers/bindRecaring:
+    post:
+      summary: привязать платежную карту к абонементу
+      operationId: bindRecaring
+      tags:
+        - Payment
+        - KPO
+      consumes:
+        - application/json
+      description: |-
+        Привязывает платежную карту к абонементу
+        Ответственный Калиниченко Н.
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - $ref: '#/parameters/request'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              clubCardId:
+                type: string
+                description: идентификатор абонемента
+              card:
+                type: string
+                description: идентификатор платежной карты
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - Ok
+                  - fail
+                description: успешно
+            required:
+              - result
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+    x-restlet:
+      section: Customers
+    parameters: [ ]
+
   /rooms/getRooms:
     post:
       summary: список помещений по клубу - для визуализации раздевалок
