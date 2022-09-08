@@ -7995,6 +7995,15 @@ paths:
               result:
                 type: string
                 description: код ошибки
+                enum:
+                  - PaymentInProgress - заказ в обработке в банке
+                  - IncorrectPackage - ошибка клип-карты
+                  - IncorrectClub - неверный клуб/не найден клуб
+                  - ContractNotFound - не найдена клубная карта
+                  - IncorrectService - не найдена переданная услуга
+                  - IncorrectCellСupboard - не корректное место хранения передано
+                  - IncorrectPeriod - не корректный период аренды шкафа передан
+                  - IncorrectParameter - не удалось сформировать документ продажи(прочие проблемы)
               description:
                 type: string
                 description: описание ошибки
