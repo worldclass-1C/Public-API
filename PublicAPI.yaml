@@ -7618,6 +7618,16 @@ paths:
         - $ref: '#/parameters/language'
         - $ref: '#/parameters/brand'
         - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                  description: идентификатор клиента
+              required:
+                - customerId
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
