@@ -7626,8 +7626,6 @@ paths:
                 customerId:
                   type: string
                   description: идентификатор клиента
-              required:
-                - customerId
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
