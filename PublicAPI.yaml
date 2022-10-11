@@ -13346,6 +13346,12 @@ paths:
                 order:
                   type: number
                   description: порядок следования фото/видео
+                externalUrl:
+                  type: string
+                  description: внешняя ссылка
+                buttonText:
+                  type: string
+                  description: текст кнопки
         '404':
           description: Страница не найдена
           schema:
