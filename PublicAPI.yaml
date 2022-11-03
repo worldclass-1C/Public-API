@@ -3682,6 +3682,9 @@ paths:
                 canCancel:
                   type: boolean
                   description: Признак возможной отмены
+                canRegistrate:
+                  type: boolean
+                  description: Признак возможной повторной записи
                 paymentStatus:
                   type: string
                   enum:
