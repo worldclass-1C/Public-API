@@ -812,6 +812,9 @@ paths:
               photo:
                 type: string
                 description: URL фотографии
+              specialList:
+                type: boolean
+                description: Признак нахождения клиента в черном списке
               personalManager:
                 type: object
                 description: персональный менеджер
@@ -2640,6 +2643,12 @@ paths:
               available:
                 type: boolean
                 description: 'доступность покупки абонемента '
+              accessTimeLimit:
+                type: string
+                description: описание ограничений на посещение клуба по абонементу
+              ageCategory:
+                type: string
+                description: возрастная категория клиента
             required:
               - fullDescription
               - photoList
@@ -13355,6 +13364,9 @@ paths:
                 buttonText:
                   type: string
                   description: текст кнопки
+                inNewApp:
+                  type: boolean
+                  description: признак показывать в новом приложении
         '404':
           description: Страница не найдена
           schema:
