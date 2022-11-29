@@ -9103,7 +9103,6 @@ paths:
       x-examples: { }
       tags:
         - Customers
-
   /info/eventInfo:
     post:
       summary: описание события - 15.2.1 - 15.2.3
@@ -9293,6 +9292,20 @@ paths:
                   required:
                     - type
                     - ref
+              objectiveList:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор цели
+                    name:
+                      type: string
+                      description: наименование цели
+                    color:
+                      type: string
+                      description: цвет
               urlZoom:
                 type: string
                 description: Ссылка на Zoom
