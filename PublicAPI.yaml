@@ -9761,6 +9761,82 @@ paths:
     x-restlet:
       section: Lists
     parameters: []
+  /events/readNotificationNew:
+    post:
+      summary: прочитать массив уведомлений (CONNECT)
+      description: |-
+        помечает прочитанными уведомление/уведломления
+
+        Ответственный IT
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: readNotificationNew
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                Notes:
+                  type: string
+                  description: идентификатор уведомления
+          x-examples: { }
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                result:
+                  type: string
+                  description: результат
+              required:
+                - result
+        '401':
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      operationId: readNotificationNew
+      tags:
+        - Events
+    x-restlet:
+      section: Lists
+    parameters: [ ]
   /info/unReadNotificationCount:
     post:
       summary: количество не прочитанных уведомлений (CONNECT)
