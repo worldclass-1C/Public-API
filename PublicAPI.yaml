@@ -9787,12 +9787,11 @@ paths:
           in: body
           required: true
           schema:
-            Notes:
-            type: array
-            items:
-              type: object
-              properties:
-                result:
+            type: object
+            properties:
+              type: array
+              description: массив iud-ов
+                items:
                   type: string
                   description: идентификатор уведомления
           x-examples: { }
