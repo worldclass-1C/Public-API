@@ -9787,14 +9787,14 @@ paths:
           in: body
           required: true
           schema:
+            Notes:
             type: array
-            items:
-              Notes:
-              type: object
-              properties:
-                result:
-                  type: string
-                  description: идентификатор уведомления
+              items:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: идентификатор уведомления
           x-examples: { }
       responses:
         '200':
