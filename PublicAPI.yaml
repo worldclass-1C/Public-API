@@ -9788,6 +9788,7 @@ paths:
           required: true
           schema:
             type: object
+            description: Массив
           x-examples: { }
       responses:
         '200':
