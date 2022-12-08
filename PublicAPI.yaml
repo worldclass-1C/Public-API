@@ -9786,6 +9786,8 @@ paths:
         - name: body
           in: body
           required: true
+          schema:
+            type: object
           x-examples: { }
       responses:
         '200':
