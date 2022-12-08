@@ -9789,9 +9789,10 @@ paths:
           schema:
             type: array
             items:
+              Notes:
               type: object
               properties:
-                Notes:
+                result:
                   type: string
                   description: идентификатор уведомления
           x-examples: { }
