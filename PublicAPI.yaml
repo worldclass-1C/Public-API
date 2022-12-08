@@ -9791,10 +9791,10 @@ paths:
             properties:
               Notes:
                 type: array
-                description: jgjgjgj
+                description: массив uid-ов
                 items:
                   type: string
-                  description: xxx
+                  description: uid
           x-examples: { }
       responses:
         '200':
