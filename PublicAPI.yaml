@@ -9789,7 +9789,7 @@ paths:
           schema:
             type: object
             description: Массив 123
-            items:
+            properties:
               type: object
               description: Notes
           x-examples: { }
