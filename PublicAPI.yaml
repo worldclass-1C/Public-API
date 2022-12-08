@@ -9791,9 +9791,6 @@ paths:
             properties:
               type: array
               description: массив iud-ов
-              items:
-                type: string
-                description: идентификатор уведомления
           x-examples: { }
       responses:
         '200':
