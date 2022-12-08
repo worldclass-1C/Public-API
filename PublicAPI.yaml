@@ -9793,8 +9793,10 @@ paths:
                 type: array
                 description: массив uid-ов
                 items:
-                  type: string
-                  description: uid
+                properties:
+                  uid:
+                    type: string
+                    description: uid
           x-examples: { }
       responses:
         '200':
