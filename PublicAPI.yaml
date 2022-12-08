@@ -9790,7 +9790,6 @@ paths:
             type: object
             properties:
               type: array
-              description: массив iud-овв
                 items:
                   type: string
                   description: идентификатор уведомления
