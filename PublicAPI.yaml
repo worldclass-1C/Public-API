@@ -9788,6 +9788,10 @@ paths:
           required: true
           schema:
             type: object
+            properties:
+              Notes:
+                type: array
+                description: jgjgjgj
           x-examples: { }
       responses:
         '200':
