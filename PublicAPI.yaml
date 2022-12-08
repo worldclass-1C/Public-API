@@ -9789,9 +9789,6 @@ paths:
           schema:
             type: object
             description: Массив 123
-            properties:
-              type: object
-              description: Notes
           x-examples: { }
       responses:
         '200':
