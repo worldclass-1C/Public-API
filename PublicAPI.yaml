@@ -9789,12 +9789,12 @@ paths:
           schema:
             Notes:
             type: array
-              items:
-                type: object
-                properties:
-                  result:
-                    type: string
-                    description: идентификатор уведомления
+            items:
+              type: object
+              properties:
+                result:
+                  type: string
+                  description: идентификатор уведомления
           x-examples: { }
       responses:
         '200':
