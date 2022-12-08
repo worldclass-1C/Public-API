@@ -9790,7 +9790,8 @@ paths:
             type: object
             description: Массив 123
             items:
-              type: array
+              type: object
+              description: Notes
           x-examples: { }
       responses:
         '200':
