@@ -9792,6 +9792,9 @@ paths:
               Notes:
                 type: array
                 description: jgjgjgj
+                items:
+                  type: string
+                  description: xxx
           x-examples: { }
       responses:
         '200':
