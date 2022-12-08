@@ -9790,9 +9790,10 @@ paths:
             type: object
             properties:
               type: array
-                items:
-                  type: string
-                  description: идентификатор уведомления
+              description: массив iud-ов
+              items:
+                type: string
+                description: идентификатор уведомления
           x-examples: { }
       responses:
         '200':
