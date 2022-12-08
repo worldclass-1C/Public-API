@@ -9786,11 +9786,6 @@ paths:
         - name: body
           in: body
           required: true
-          schema:
-            type: object
-            properties:
-              type: array
-              description: массив iud-ов
           x-examples: { }
       responses:
         '200':
