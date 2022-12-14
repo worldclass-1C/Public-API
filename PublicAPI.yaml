@@ -10159,7 +10159,7 @@ paths:
                   - active
                   - waiting
               balance:
-                type: float
+                type: integer
                 description: Остаток баланса
               bonus:
                 type: integer
