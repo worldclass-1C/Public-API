@@ -9808,8 +9808,6 @@ paths:
               quantity:
                 type: integer
                 description: кол-во не обработанных сообщений
-              required:
-                - result
         '401':
           description: Пользователь не идентифицирован
           schema:
