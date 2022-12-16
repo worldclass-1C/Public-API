@@ -9800,16 +9800,14 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-            type: array
-            items:
-              type: object
-              properties:
-                result:
-                  type: string
-                  description: результат
-                quantity:
-                  type: string
-                  description: кол-во не обработанных сообщений
+            type: object
+            properties:
+              result:
+                type: string
+                description: результат
+              quantity:
+                type: integer
+                description: кол-во не обработанных сообщений
               required:
                 - result
         '401':
