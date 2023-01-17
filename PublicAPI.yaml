@@ -3894,6 +3894,7 @@ paths:
                 - metro
                 - phone
                 - photo
+                - order
           examples: {}
         '401':
           description: Пользователь не идентифицирован
