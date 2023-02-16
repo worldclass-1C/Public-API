@@ -2067,7 +2067,7 @@ paths:
                   description: отчество клиента
                 balance:
                   type: string
-                  description: баланс их кэша
+                  description: баланс из кэша
           examples:
             application/json: список связанных клиентов
         '403':
