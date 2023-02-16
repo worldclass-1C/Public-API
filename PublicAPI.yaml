@@ -2011,7 +2011,7 @@ paths:
     x-restlet:
       section: Customers
     parameters: []
-  /customers/relatedCustomers:
+  /customers/relatedCustomersProfile:
     post:
       summary: связанные клиенты - 8.12.1
       description: |-
