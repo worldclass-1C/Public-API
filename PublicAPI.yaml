@@ -2044,6 +2044,7 @@ paths:
                 - firstname
                 - lastname
                 - middlename
+                - balance
               type: object
               properties:
                 uid:
@@ -2064,6 +2065,9 @@ paths:
                 middlename:
                   type: string
                   description: отчество клиента
+                balance:
+                  type: string
+                  description: баланс их кэша
           examples:
             application/json: список связанных клиентов
         '403':
