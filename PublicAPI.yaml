@@ -4673,8 +4673,12 @@ paths:
                               type: string
                               description: Ссылка на фото Направления
                             tags:
-                              type: string
-                              description: Ссылка на фото Направления
+                              type: array
+                              description: услуги
+                              items:
+                                uid:
+                                  type: string
+                                  description: теги из Описания услуги
                     required:
                       - uid
                       - price
