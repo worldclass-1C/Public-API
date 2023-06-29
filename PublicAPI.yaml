@@ -4678,9 +4678,8 @@ paths:
                               items:
                                 type: object
                                 properties:
-                                  uid:
-                                    type: string
-                                    description: теги из Описания услуги
+                                  type: string
+                                  description: теги из Описания услуги
                     required:
                       - uid
                       - price
