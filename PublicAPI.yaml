@@ -4672,7 +4672,7 @@ paths:
                             serviceKindPhoto5:
                               type: string
                               description: Ссылка на фото Направления
-                            'tags':
+                            tags:
                               type: string
                               description: Ссылка на фото Направления
                     required:
