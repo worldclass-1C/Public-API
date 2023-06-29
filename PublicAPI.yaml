@@ -4674,11 +4674,13 @@ paths:
                               description: Ссылка на фото Направления
                             tags:
                               type: array
-                              description: услуги
+                              description: теги услуг
                               items:
-                                uid:
-                                  type: string
-                                  description: теги из Описания услуги
+                                type: object
+                                properties:
+                                  uid:
+                                    type: string
+                                    description: теги из Описания услуги
                     required:
                       - uid
                       - price
