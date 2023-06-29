@@ -4669,18 +4669,9 @@ paths:
                             serviceKind:
                               type: string
                               description: Направление (Дополнительные параметры - Вид деятельности - Направление)
-                            serviceKindPhoto:
+                            serviceKindPhoto2:
                               type: string
                               description: Ссылка на фото Направления
-                            tags:
-                              type: array
-                              description: услуги
-                              items:
-                                type: object
-                                properties:
-                                  uid:
-                                    type: string
-                                    description: идентификатор услуги
                     required:
                       - uid
                       - price
