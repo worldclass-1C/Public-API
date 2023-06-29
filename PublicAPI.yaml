@@ -4676,10 +4676,7 @@ paths:
                               type: array
                               description: теги услуг
                               items:
-                                type: object
-                                properties:
-                                  type: string
-                                  description: теги из Описания услуги
+                                type: string
                     required:
                       - uid
                       - price
