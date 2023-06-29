@@ -5298,6 +5298,26 @@ paths:
                 serviceQuantity:
                   type: number
                   description: Остаток услуг
+                status:
+                  type: string
+                  description: Статус контракта
+                  enum:
+                    - active - активный
+                    - inactive - неактивный
+                paymentStatus:
+                  type: string
+                  description: статус оплаты
+                  enum:
+                    - paid - 100%
+                    - waiting
+                    - inProgress
+                    - confirming
+                amount:
+                  type: number
+                  description: Сумма к оплате
+                reserveQuantity:
+                  type: number
+                  description: количество зарезервированных услуг
                 gymList:
                   type: array
                   description: Клубы пакета
@@ -5322,15 +5342,6 @@ paths:
                   description: список услуг
                   items:
                     $ref: '#/definitions/service'
-                status:
-                  type: string
-                  description: Статус контракта
-                  enum:
-                    - active - активный
-                    - inactive - неактивный
-                amount:
-                  type: number
-                  description: Сумма к оплате
                 customerList:
                   type: array
                   description: Список клиентов
@@ -5350,14 +5361,6 @@ paths:
                       - uid
                       - name
                       - main
-                paymentStatus:
-                  type: string
-                  description: статус оплаты
-                  enum:
-                    - paid - 100%
-                    - waiting
-                    - inProgress
-                    - confirming
                 reserve:
                   type: array
                   items:
@@ -5372,9 +5375,6 @@ paths:
                     required:
                       - debt
                       - quantity
-                reserveQuantity:
-                  type: number
-                  description: количество зарезервированных услуг
               required:
                 - uid
                 - name
