@@ -4669,7 +4669,7 @@ paths:
                             serviceKind:
                               type: string
                               description: Направление (Дополнительные параметры - Вид деятельности - Направление)
-                            serviceKindPhoto4:
+                            serviceKindPhoto5:
                               type: string
                               description: Ссылка на фото Направления
                             'tags':
