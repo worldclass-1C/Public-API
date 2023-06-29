@@ -4828,7 +4828,7 @@ paths:
                             description: Количество услуг/сегментов
                           entryList:
                             type: array
-                            description: Состав услуги/сегмент
+                            description: Состав услуги/сегмента
                             items:
                               type: object
                               properties:
@@ -4858,6 +4858,9 @@ paths:
                                 photo:
                                   type: string
                                   description: фотография
+                                serviceTypeBusinessDirection:
+                                  type: string
+                                  description: Бизнес направление
                               required:
                                 - uid
                                 - entryType
