@@ -4828,7 +4828,7 @@ paths:
                             description: Количество услуг/сегментов
                           entryList:
                             type: array
-                            description: Состав услуги/сегмента
+                            description: Состав услуги/сегмент
                             items:
                               type: object
                               properties:
