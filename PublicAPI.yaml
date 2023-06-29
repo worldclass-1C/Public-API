@@ -37,7 +37,7 @@ tags:
 paths:
   /general/config:
     post:
-      summary: инф. о токене сеанса (CONNECT)
+      summary: инфор. о токене сеанса (CONNECT)
       tags:
         - General
       description: Информация о токене сеанса и актуальной версии приложения
