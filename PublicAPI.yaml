@@ -4860,7 +4860,7 @@ paths:
                                   description: фотография
                                 serviceTypeBusinessDirection:
                                   type: string
-                                  description: Бизнес направление
+                                  description: бизнес направление услуги (Дополнительные параметры - Вид деятельности - Бизнес направление)
                               required:
                                 - uid
                                 - entryType
