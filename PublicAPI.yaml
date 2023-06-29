@@ -4672,15 +4672,6 @@ paths:
                             serviceKindPhoto:
                               type: string
                               description: Ссылка на фото Направления
-                            tags:
-                              type: array
-                              description: услуги
-                              items:
-                                type: object
-                                properties:
-                                  uid:
-                                    type: string
-                                    description: идентификатор услуги
                     required:
                       - uid
                       - price
