@@ -3762,11 +3762,27 @@ paths:
     parameters: [ ]
   /Employees/addShift:
     post:
-      summary: активности пользователя 15.1
+      summary: Добавление смен тренеру
       description: |-
-        отображает список всех активностей пользователя за период (посещение, тренировки, услуги СПА)
+        добавление смен тренеру
 
         Ответственный
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: addShift
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: body
   /lists/gymList:
     post:
       summary: список клубов - 5.5; 20.1 (CONNECT)
