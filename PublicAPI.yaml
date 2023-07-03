@@ -3761,6 +3761,12 @@ paths:
       section: Schedules
     parameters: [ ]
   /Employees/addShift:
+    post:
+      summary: активности пользователя 15.1
+      description: |-
+        отображает список всех активностей пользователя за период (посещение, тренировки, услуги СПА)
+
+        Ответственный
   /lists/gymList:
     post:
       summary: список клубов - 5.5; 20.1 (CONNECT)
