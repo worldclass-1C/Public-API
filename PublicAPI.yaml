@@ -3760,6 +3760,7 @@ paths:
     x-restlet:
       section: Schedules
     parameters: [ ]
+  /Employees/addShift:
   /lists/gymList:
     post:
       summary: список клубов - 5.5; 20.1 (CONNECT)
