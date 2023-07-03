@@ -3783,6 +3783,19 @@ paths:
         - $ref: '#/parameters/brand'
         - $ref: '#/parameters/auth-key'
         - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              gymId:
+                type: string
+                description: идентификатор клуба
+                example: cc35e9b2-d155-11e4-80d1-005056810138
+              employeeId:
+                type: string
+                description: идентификатор тренера
+                example: cc35e9b2-d155-11e4-80d1-005056810138
   /lists/gymList:
     post:
       summary: список клубов - 5.5; 20.1 (CONNECT)
