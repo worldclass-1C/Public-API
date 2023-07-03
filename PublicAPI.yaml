@@ -3760,30 +3760,6 @@ paths:
     x-restlet:
       section: Schedules
     parameters: [ ]
-  /employees/addShift:
-    post:
-      summary: добавлят смену тренеру
-      description: |-
-        Метод добавлят смену тренеру
-
-        Ответственный IT
-      produces:
-        - application/json
-      parameters:
-        - $ref: '#/parameters/content-type'
-        - name: request
-          in: header
-          required: true
-          type: string
-          description: наименование запроса
-          default: addShift
-        - $ref: '#/parameters/language'
-        - $ref: '#/parameters/brand'
-        - $ref: '#/parameters/auth-key'
-        - name: body
-          in: body
-          required: false
-
   /lists/gymList:
     post:
       summary: список клубов - 5.5; 20.1 (CONNECT)
