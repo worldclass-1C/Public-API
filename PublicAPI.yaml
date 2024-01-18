@@ -638,7 +638,7 @@ paths:
   /user/accountProfile:
     post:
       summary: профиль пользователя connect (CONNECT)
-      description: Ответственный 
+      description: Ответственный
       produces:
         - application/json
       parameters:
@@ -735,7 +735,7 @@ paths:
   /user/userProfile:
     post:
       summary: профиль пользователя (CONNECT)
-      description: Ответственный 
+      description: Ответственный
       produces:
         - application/json
       parameters:
@@ -1073,109 +1073,109 @@ paths:
           schema:
             type: array
             items:
-                type: object
-                properties:
-                  date:
-                    type: string
-                    description: Дата время оказания/продажи услуги
-                  docId:
-                    type: string
-                    description: идентификатор документа продажи/счета
-                    minLength: 36
-                    maxLength: 36
-                  docType:
-                    type: string
-                    description: тип документа
-                    enum:
-                      - invoice - чек
-                      - personal - персональная тренировка
-                      - group - групповой урок
-                  docName:
-                    type: string
-                    description: наименование документа(для СПА)
-                  amount:
-                    type: number
-                    description: сумма
-                  discountedAmount:
-                    type: number
-                    description: сумма со скидкой
-                  gym:
+              type: object
+              properties:
+                date:
+                  type: string
+                  description: Дата время оказания/продажи услуги
+                docId:
+                  type: string
+                  description: идентификатор документа продажи/счета
+                  minLength: 36
+                  maxLength: 36
+                docType:
+                  type: string
+                  description: тип документа
+                  enum:
+                    - invoice - чек
+                    - personal - персональная тренировка
+                    - group - групповой урок
+                docName:
+                  type: string
+                  description: наименование документа(для СПА)
+                amount:
+                  type: number
+                  description: сумма
+                discountedAmount:
+                  type: number
+                  description: сумма со скидкой
+                gym:
+                  type: object
+                  description: клуб
+                  required:
+                    - uid
+                    - name
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор клуба
+                      minLength: 36
+                      maxLength: 36
+                    name:
+                      type: string
+                      description: наименование клуба
+                employee:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор тренера
+                    firstName:
+                      type: string
+                      description: Имя сотрудника
+                    secondName:
+                      type: string
+                      description: Фамилия сотрудника
+                    photo:
+                      type: string
+                      description: ссылка на фото
+                serviceList:
+                  type: array
+                  items:
                     type: object
-                    description: клуб
-                    required:
-                      - uid
-                      - name
                     properties:
-                      uid:
-                        type: string
-                        description: идентификатор клуба
-                        minLength: 36
-                        maxLength: 36
                       name:
                         type: string
-                        description: наименование клуба
-                  employee:
-                      type: object
-                      properties:
-                        uid:
-                          type: string
-                          description: идентификатор тренера
-                        firstName:
-                          type: string
-                          description: Имя сотрудника
-                        secondName:
-                          type: string
-                          description: Фамилия сотрудника
-                        photo:
-                          type: string
-                          description: ссылка на фото
-                  serviceList:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          description: наименование описания услуги
-                        quantity:
-                          type: number
-                          description: количество
-                        price:
-                          type: number
-                          description: прайсовая цена
-                        amount:
-                          type: number
-                          description: сумма
-                        photo:
-                          type: string
-                          description: ссылка на фото услуги
-                      required:
-                        - name
-                        - quantity
-                        - price
-                        - amount
-                  customer:
-                    type: string
-                    description: Для поддержки строй версии (фамиля имя клиента)
-                  customerObject:
-                    type: object
-                    description: если долг не клиента а его ребенка
-                    properties:
-                      uid:
+                        description: наименование описания услуги
+                      quantity:
+                        type: number
+                        description: количество
+                      price:
+                        type: number
+                        description: прайсовая цена
+                      amount:
+                        type: number
+                        description: сумма
+                      photo:
                         type: string
-                        description: идентификатор клиента
-                      name:
-                        type: string
-                        description: 'фамилия, имя клиента'
+                        description: ссылка на фото услуги
                     required:
-                      - uid
                       - name
-                required:
-                  - docId
-                  - docType
-                  - amount
-                  - discountedAmount
-                  - gym
+                      - quantity
+                      - price
+                      - amount
+                customer:
+                  type: string
+                  description: Для поддержки строй версии (фамиля имя клиента)
+                customerObject:
+                  type: object
+                  description: если долг не клиента а его ребенка
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор клиента
+                    name:
+                      type: string
+                      description: 'фамилия, имя клиента'
+                  required:
+                    - uid
+                    - name
+              required:
+                - docId
+                - docType
+                - amount
+                - discountedAmount
+                - gym
         '401':
           description: Пользователь не идентифицирован
           schema:
@@ -1233,6 +1233,9 @@ paths:
           schema:
             type: object
             properties:
+              customer:
+                type: string
+                description: 'идентификатор клиента'
               customerType:
                 type: string
                 default: self
@@ -1247,12 +1250,16 @@ paths:
                 description: 'тип запроса'
                 enum:
                   - firstActual
+                  - guestVisit
                 example: firstActual
               uidList:
                 type: array
                 description: 'список идентификаторов контрактов (если заполнен, то информация только контрактов из списка)'
                 items:
                   type: string
+              promoSegment:
+                type: string
+                description: 'идентификатор сегмента'
             required:
               - customerType
           x-examples: {}
@@ -1488,54 +1495,54 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-              type: object
-              properties:
-                serviceList:
-                  type: array
-                  description: список услуг включенных в абонемент
-                  items:
-                    $ref: '#/definitions/service'
-                giftList:
-                  type: array
-                  description: список подарков по абонементу
-                  items:
-                    type: object
-                    properties:
-                      uid:
-                        type: string
-                        description: идентификатор подарка
-                      name:
-                        type: string
-                        description: наименование подарка
-                      description:
-                        type: string
-                        description: описание подарка
-                      quantity:
-                        type: integer
-                        description: количество
-                      photo:
-                        type: string
-                        description: URL фотографии
-                      type:
-                        type: string
-                        description: тип подарка
-                        enum:
-                          - service
-                          - discount
-                          - bonus
-                          - freezing
-                          - membership
-                          - access
-                    required:
-                      - uid
-                      - name
-                      - description
-                      - quantity
-                      - photo
-                      - type
-              required:
-                - serviceList
-                - giftList
+            type: object
+            properties:
+              serviceList:
+                type: array
+                description: список услуг включенных в абонемент
+                items:
+                  $ref: '#/definitions/service'
+              giftList:
+                type: array
+                description: список подарков по абонементу
+                items:
+                  type: object
+                  properties:
+                    uid:
+                      type: string
+                      description: идентификатор подарка
+                    name:
+                      type: string
+                      description: наименование подарка
+                    description:
+                      type: string
+                      description: описание подарка
+                    quantity:
+                      type: integer
+                      description: количество
+                    photo:
+                      type: string
+                      description: URL фотографии
+                    type:
+                      type: string
+                      description: тип подарка
+                      enum:
+                        - service
+                        - discount
+                        - bonus
+                        - freezing
+                        - membership
+                        - access
+                  required:
+                    - uid
+                    - name
+                    - description
+                    - quantity
+                    - photo
+                    - type
+            required:
+              - serviceList
+              - giftList
         '403':
           description: Выполнение запроса завершилось ошибкой
           schema:
@@ -1562,7 +1569,7 @@ paths:
       description: |-
         Метод возвращает список финансовых операций за заданных период времени.
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -1710,7 +1717,7 @@ paths:
       description: |-
         Метод возвращает список бонусных операций за заданных период времени.
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -1797,7 +1804,7 @@ paths:
       description: |-
         Метод возвращает список опреций по контракту(Продажа, Активация, Заморозка, Передача, Отказ от содоступа, Заявка на возврат контракта, Заявка на возврат денежных средств, Отказ от доп пакета, Изменение клубов доступа)
 
-        Ответственный  
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -1878,7 +1885,7 @@ paths:
       description: |-
         Метод возвращает список подключенных третьих лиц к авансам пользователя ЛК, и список авансов, третьих лиц к которым подключен пользователь ЛК
 
-        Ответственный 
+        Ответственный
       produces:
         - application/json
       parameters:
@@ -2018,7 +2025,7 @@ paths:
       description: |-
         Возвращает список связанных клиентов
 
-        Ответственный 
+        Ответственный
       produces:
         - application/json
       parameters:
@@ -2097,7 +2104,7 @@ paths:
       description: |-
         Возвращает список арендованных ячеек
 
-        Ответственный 
+        Ответственный
       produces:
         - application/json
       parameters:
@@ -2208,7 +2215,7 @@ paths:
       description: |-
         Возвращает список доступных для аренды ячеек
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -2333,7 +2340,7 @@ paths:
       description: |-
         Возвращает описание сотрудника
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -2713,8 +2720,8 @@ paths:
         1. Непосредственно по кнопке в командной панели
         2. Из описания сотрудника
         3. Из описания услуги
+      
 
-          
       consumes:
         - application/json
       produces:
@@ -3017,7 +3024,7 @@ paths:
         2. Из описания сотрудника
         3. Из описания услуги
 
-        Ответственный  
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -3363,7 +3370,7 @@ paths:
       description: |-
         отображает список всех активностей пользователя за период (посещение, тренировки, услуги СПА)
 
-        Ответственный  
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -3536,7 +3543,7 @@ paths:
       description: |-
         отображает список всех активностей пользователя за период (посещение, тренировки, услуги СПА)
 
-        Ответственный  
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -3802,7 +3809,7 @@ paths:
       description: |-
         Возвращает список клубов заданной сети
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -3984,7 +3991,7 @@ paths:
       description: |-
         Возвращает список помещений клуба
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -4083,7 +4090,7 @@ paths:
       description: |-
         Возвращает список целей
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -4180,7 +4187,7 @@ paths:
       description: |-
         Возвращает массив целей клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -4283,7 +4290,7 @@ paths:
       description: |-
         устанавливает для клиента цели
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -4369,7 +4376,7 @@ paths:
       description: |-
         Возвращает массив причин отмен записи на персональные услуги
 
-        Ответственный 
+        Ответственный
       produces:
         - application/json
       parameters:
@@ -4447,7 +4454,7 @@ paths:
       description: |-
         Возвращает массив сетей подключенных к личному кабинету
 
-        Ответственный 
+        Ответственный
       parameters:
         - name: content-type
           in: header
@@ -4557,7 +4564,7 @@ paths:
       description: |-
         Список кодов номеров телефонов по странам с маской номеров телефонов
 
-        Ответственный 
+        Ответственный
       parameters:
         - name: content-type
           in: header
@@ -4948,7 +4955,7 @@ paths:
       description: |-
         Возвращает список сотрудников
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -5480,7 +5487,7 @@ paths:
       description: |-
         Возвращает информацию по клубу
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -5813,7 +5820,7 @@ paths:
       description: |-
         Возвращает список сотрудников
 
-        Ответственный  
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -6275,7 +6282,7 @@ paths:
       description: |-
         Возвращает текущий рейтинг клиента и описания программы лояльности
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -6385,7 +6392,7 @@ paths:
       description: |-
         Возвращает текущий рейтинг клиента и описания программы лояльности
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -6697,17 +6704,17 @@ paths:
                   description: идентификатор группы номенклатуры
                   example: cc35e9b2-d155-11e4-80d1-005056810138
                 isGroup:
-                    type: boolean
-                    description: признак группы текущего элемента
-                    example: true
+                  type: boolean
+                  description: признак группы текущего элемента
+                  example: true
                 isDelete:
-                    type: boolean
-                    description: признак группы текущего элемента
-                    example: true
+                  type: boolean
+                  description: признак группы текущего элемента
+                  example: true
                 name:
-                      type: string
-                      description: наименование элемента
-                      example: Крем для лица
+                  type: string
+                  description: наименование элемента
+                  example: Крем для лица
                 vatRate:
                   type: string
                   description: ставка НДС
@@ -7312,7 +7319,7 @@ paths:
       description: |-
         Запрос на привязку банковской карты клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -7399,7 +7406,7 @@ paths:
       description: |-
         Привязывает карту к клиенту
 
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -7490,7 +7497,7 @@ paths:
       description: |-
         Запрос на привязку банковской карты клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -7565,7 +7572,7 @@ paths:
       description: |-
         Инициирует связь с банком и возвращает статус оплаты по идентификатору ордера
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -7638,7 +7645,7 @@ paths:
       description: |-
         Запрос на отвязку банковской карты клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -7726,7 +7733,7 @@ paths:
       description: |
         Отвязывает банковскую карту от клиента
 
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -7781,11 +7788,11 @@ paths:
         - in: body
           name: body
           schema:
-              type: object
-              properties:
-                customerId:
-                  type: string
-                  description: идентификатор клиента
+            type: object
+            properties:
+              customerId:
+                type: string
+                description: идентификатор клиента
       responses:
         '200':
           description: Выполнение запроса завершилось успешно
@@ -8368,7 +8375,7 @@ paths:
       description: |-
         Возвращает список услуг доступных в клубе
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -8522,7 +8529,7 @@ paths:
       description: |-
         Возвращает описание услуги
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -8744,7 +8751,7 @@ paths:
       description: |-
         Выполняет регистрацию персональной записи
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -8857,7 +8864,7 @@ paths:
       description: |-
         Выполняет регистрацию предварительной записи на посещение клуба
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -8980,7 +8987,7 @@ paths:
       description: |-
         Метод возвращает количество и сумму услуг к оплате
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -9045,7 +9052,7 @@ paths:
       description: |-
         Метод возвращает остаток бонусов клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -9115,7 +9122,7 @@ paths:
       description: |-
         Добавить/изменить доступы к семейному счету клиента
 
-        Ответственный  
+        Ответственный
       parameters:
         - $ref: '#/parameters/content-type'
         - type: string
@@ -9179,10 +9186,10 @@ paths:
       tags:
         - Customers
 
-  /customers/signaturedocs:
+  /customers/signatureDocs:
     post:
       summary: Подписанные документы клиента
-      operationId: signaturedocs
+      operationId: signatureDocs
       parameters:
         - $ref: '#/parameters/content-type'
         - type: string
@@ -9203,51 +9210,107 @@ paths:
                 description: Идентификатор объекта
       responses:
         '200':
-              description: Выполнение запроса завершилось успешно
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    printDoc:
-                      type: string
-                      description: Объект документа
-                    createDate:
-                      type: string
-                      description: дата регистрации документа
-                    signDate:
-                      type: string
-                      description: дата подписи документа
-                    docLink:
-                      type: string
-                      description: ссылка на документ в формате pdf
-                  required:
-                    - printDoc
-                    - createDate
-                    - docLink
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                printDoc:
+                  type: string
+                  description: Объект документа
+                createDate:
+                  type: string
+                  description: дата регистрации документа
+                signDate:
+                  type: string
+                  description: дата подписи документа
+                docLink:
+                  type: string
+                  description: ссылка на документ в формате pdf
+              required:
+                - printDoc
+                - createDate
+                - docLink
         '401':
-              description: Пользователь не идентифицирован
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: string
-                    enum:
-                      - userNotIdentified
-                  description:
-                    type: string
-                    default: User not identified
+          description: Пользователь не идентифицирован
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - userNotIdentified
+              description:
+                type: string
+                default: User not identified
         '403':
-              description: Выполнение запроса завершилось ошибкой
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: string
-                    description: код ошибки
-                  description:
-                    type: string
-                    description: описание ошибки
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      x-examples: { }
+      tags:
+        - Customers
+  /customers/makeSignature:
+    post:
+      summary: Генерация и подписание документов клиента
+      operationId: makesignature
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - type: string
+          in: header
+          name: request
+          required: true
+          description: имя запроса
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              contractUID:
+                type: string
+                description: Идентификатор контракта
+              makeDoc:
+                type: string
+                description: Операция "read" - создание документа (чтение клиентом и создание в КПО); "write" - подписание документа
+              uidLinkDocReade:
+                type: string
+                description: Идентификатор документа для подписания при операции "write"
+            required:
+              - contractUID
+              - makeDoc
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              uidLinkDocReade:
+                type: string
+                description: Документ для ознакомпления и подписания
+            required:
+              - uidLinkDocReade
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
       x-examples: { }
       tags:
         - Customers
@@ -9257,7 +9320,7 @@ paths:
       description: |-
         Возвращает описание события (предварительной записи, группового занятия, посещения или гостевого визита)
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -9589,7 +9652,7 @@ paths:
       description: |-
         Метод выполняет активацию абонемента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -9663,7 +9726,7 @@ paths:
       description: |-
         Выполняет отмену предварительной записи клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10151,7 +10214,7 @@ paths:
         - Users
       description: |-
         Изменяет данные профайла клиента
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -10218,7 +10281,7 @@ paths:
       description: |-
         Возвращает кэшированную информацию по запрошенным секциям
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10507,7 +10570,7 @@ paths:
         Очищает кэшированную информацию по запрошенным секциям
         Очищаются записи, зарегистрированные ДО переданной даты
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10589,7 +10652,7 @@ paths:
       description: |-
         Возвращает доступные функции на основании chain из token'а
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10648,7 +10711,7 @@ paths:
       description: |-
         Возвращает перечень активных опросов
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10694,7 +10757,7 @@ paths:
       description: |-
         Наполнение опроса пользователя с выбранными ответами
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10816,7 +10879,7 @@ paths:
       description: |-
         Фиксация ответа пользователя
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10863,15 +10926,15 @@ paths:
               - pollId
               - questionId
       responses:
-          '200':
-            description: Выполнение запроса завершилось успешно
-            schema:
-              type: object
-              description: ответ об операции
-              properties:
-                result:
-                  type: string
-                  description: формальный ответ ОК - если ответ принят
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            description: ответ об операции
+            properties:
+              result:
+                type: string
+                description: формальный ответ ОК - если ответ принят
       operationId: pollAnswer
       tags:
         - Polls
@@ -10881,7 +10944,7 @@ paths:
       description: |-
         Установка признака завершения опроса пользователя
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -10937,7 +11000,7 @@ paths:
         - Users
       description: |-
         Изменяет данные профайла клиента
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -11022,7 +11085,7 @@ paths:
                 - photo
       description: |-
         состав курса
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -11290,7 +11353,7 @@ paths:
             required:
               - result
       description: |
-        ответсвенный 
+        ответсвенный
       tags:
         - Events
       parameters:
@@ -11342,7 +11405,7 @@ paths:
                 type: string
             required:
               - result
-      description: ответсвенный 
+      description: ответсвенный
       tags:
         - Events
       parameters:
@@ -11494,7 +11557,7 @@ paths:
         - General
       description: |-
         бесшовная интеграция, при переключении на новый город
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -11616,7 +11679,7 @@ paths:
               - result
       description: |-
         добавляет клиента в новый город
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -11860,7 +11923,7 @@ paths:
       operationId: get-lists-feedbackCatalog
       description: |-
         Получает справочники обратной связи
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -12012,7 +12075,7 @@ paths:
         - KPO
       description: |-
         Генерирует qr код в СБП
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -12099,7 +12162,7 @@ paths:
         - Customers
       description: |-
         Получает список клиентов по переданному значению отбора. В качестве подстроки поиска может выступать код клиента или его телефон.
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -12152,6 +12215,7 @@ paths:
                   - IncorrectParameter
                   - CustomerAlreadyExistName
                   - CustomerAlreadyExistPhone
+                  - CustomerInSpecialList
               uid:
                 type: string
                 description: идентификатор клиента
@@ -12161,7 +12225,7 @@ paths:
       description: |-
         добавляет клиента в базу кпо, если нет совпадений по ФИО+датарождения или номеру телефона
 
-        Ответственный  
+        Ответственный
       tags:
         - Customers
       parameters:
@@ -12268,7 +12332,7 @@ paths:
       description: |-
         Ищет клиента по номеру телефона или коду и отправляет список родственных связей для предоставления клиенту доступа к своим счетам
 
-        Ответственный  
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -12539,7 +12603,7 @@ paths:
         - Customers
       description: |-
         Получает данные из КПО для заполнения оферты при покупке контракта.
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -12587,7 +12651,7 @@ paths:
         - Customers
       description: |-
         Изменяет данные оферты в кпо, если клиент изменил на стороне приложения
-        Ответственный 
+        Ответственный
       parameters:
         - type: string
           in: header
@@ -12703,7 +12767,7 @@ paths:
       description: |-
         Выполняет регистрацию клиента на мероприятие – для ЛК клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -12791,7 +12855,7 @@ paths:
       description: |-
         Возвращает список мероприятий – для ЛК клиента
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -12949,7 +13013,7 @@ paths:
       description: |-
         Возвращает список мероприятий – для ЛК клиента
 
-        Ответственный  
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -13130,7 +13194,7 @@ paths:
       description: |-
         Возвращает список мероприятий клиента - для МП сотрудника
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -13223,7 +13287,7 @@ paths:
         - application/json
       description: |-
         Проводит атоматическое списание суммы с привязаной карты клиента
-        Ответственный 
+        Ответственный
       parameters:
         - $ref: '#/parameters/content-type'
         - $ref: '#/parameters/request'
@@ -13278,7 +13342,7 @@ paths:
                 type: string
                 description: описание ошибки
     x-restlet:
-     section: Customers
+      section: Customers
     parameters: [ ]
 
   /customers/bindRecaring:
@@ -13292,7 +13356,7 @@ paths:
         - application/json
       description: |-
         Привязывает платежную карту к абонементу
-        Ответственный 
+        Ответственный
       parameters:
         - $ref: '#/parameters/content-type'
         - $ref: '#/parameters/request'
@@ -13346,7 +13410,7 @@ paths:
       description: |-
         список помещений по клубу - для визуализации раздевалок
         идентификатор клуба указывается в url: https://solutions.worldclass.ru/API/hs/external/{идентификатор клуба}
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -13406,7 +13470,7 @@ paths:
       description: |-
         состояние ячеек в помещении - для визуализации раздевалок
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -13480,7 +13544,7 @@ paths:
         проверка валидности ссылки на страницу сотрудника в сервисе netMonet - сторонний сервис
 
         сервер: netmonet.co
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -13494,42 +13558,42 @@ paths:
         '200':
           description: Выполнение запроса завершилось успешно
           schema:
-              type: object
-              properties:
-                type:
-                  type: string
-                  description: тип сотрудника
-                data:
-                  type: object
-                  description: данные сотрудника
-                  properties:
-                    id:
-                      type: string
-                      description: код сотрудника
-                    firstName:
-                      type: string
-                      description: фамилия
-                    lastName:
-                      type: string
-                      description: имя
-                    wish:
-                      type: string
-                      description: пожелание
-                    image:
-                      type: string
-                      description: ссылка на фото
-                    workPlace:
-                      type: string
-                      description: место работы
-                    workPlaceId:
-                      type: string
-                      description: идентификатор места работы
-                    acquiringType:
-                      type: string
-                      description: тип платежной системы
-                    udcPercent:
-                      type: string
-                      description: процент комиссии
+            type: object
+            properties:
+              type:
+                type: string
+                description: тип сотрудника
+              data:
+                type: object
+                description: данные сотрудника
+                properties:
+                  id:
+                    type: string
+                    description: код сотрудника
+                  firstName:
+                    type: string
+                    description: фамилия
+                  lastName:
+                    type: string
+                    description: имя
+                  wish:
+                    type: string
+                    description: пожелание
+                  image:
+                    type: string
+                    description: ссылка на фото
+                  workPlace:
+                    type: string
+                    description: место работы
+                  workPlaceId:
+                    type: string
+                    description: идентификатор места работы
+                  acquiringType:
+                    type: string
+                    description: тип платежной системы
+                  udcPercent:
+                    type: string
+                    description: процент комиссии
         '404':
           description: Страница не найдена
           schema:
@@ -13549,7 +13613,7 @@ paths:
       summary: список баннеров главной страницы
       description: |-
         По коду сети возвращает список баннеров фото и видео контента
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
@@ -13621,28 +13685,28 @@ paths:
 
   /tip/w23c2/idemployee:
     get:
-        summary: получение страницы сотрудника для чаевых
-        description: |-
-          получение страницы сотрудника для чаевых в сервисе netMonet - сторонний сервис
+      summary: получение страницы сотрудника для чаевых
+      description: |-
+        получение страницы сотрудника для чаевых в сервисе netMonet - сторонний сервис
+        
+        сервер: netmonet.co
+        Ответственный
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - NetMonet
+      parameters:
+        - $ref: '#/parameters/content-type'
 
-          сервер: netmonet.co
-          Ответственный 
-        consumes:
-          - application/json
-        produces:
-          - application/json
-        tags:
-          - NetMonet
-        parameters:
-          - $ref: '#/parameters/content-type'
-
-        responses:
-          '200':
-            description: Выполнение запроса завершилось успешно, возвращена html страница
-          '404':
-            description: Страница не найдена
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно, возвращена html страница
+        '404':
+          description: Страница не найдена
     x-restlet:
-     section: NetMonet
+      section: NetMonet
     parameters: [ ]
 
   /events/registrationConfirm:
@@ -13651,7 +13715,7 @@ paths:
       description: |-
         Подтверждение регистрации на мероприятие - для МП сотрудника
 
-        Ответственный 
+        Ответственный
       consumes:
         - application/json
       produces:
