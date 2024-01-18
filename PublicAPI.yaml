@@ -1247,12 +1247,16 @@ paths:
                 description: 'тип запроса'
                 enum:
                   - firstActual
+                  - guestVisit
                 example: firstActual
               uidList:
                 type: array
                 description: 'список идентификаторов контрактов (если заполнен, то информация только контрактов из списка)'
                 items:
                   type: string
+              promoSegment:
+                type: string
+                description: 'идентификатор сегмента'    
             required:
               - customerType
           x-examples: {}
@@ -9251,6 +9255,62 @@ paths:
       x-examples: { }
       tags:
         - Customers
+  /customers/makeSignature:
+    post:
+      summary: Генерация и подписание документов клиента
+      operationId: makesignature
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - type: string
+          in: header
+          name: request
+          required: true
+          description: имя запроса
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              contractUID:
+                type: string
+                description: Идентификатор контракта
+              makeDoc:
+                type: string
+                description: Операция "read" - создание документа (чтение клиентом и создание в КПО); "write" - подписание документа
+              uidLinkDocReade:
+                type: string
+                description: Идентификатор документа для подписания при операции "write"
+            required:
+              - contractUID
+              - makeDoc
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              uidLinkDocReade:
+                type: string
+                description: Документ для ознакомпления и подписания
+            required:
+              - uidLinkDocReade
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      x-examples: { }
+      tags:
+        - Customers        
   /info/eventInfo:
     post:
       summary: описание события - 15.2.1 - 15.2.3
