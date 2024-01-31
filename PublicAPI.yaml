@@ -9294,9 +9294,20 @@ paths:
             properties:
               uidLinkDocReade:
                 type: string
-                description: Документ для ознакомпления и подписания
+                description: Идентификатор документа для ознакомпления и подписания (для read)
+              UIDObjPrint:
+                type: string
+                description: Идентификатор документа для ознакомпления и подписания (для write)
+              pdfURL:
+                type: string
+                description: Ссылка (URL) на документ в формате PDF
+              error:
+                type: string
+                description: Описание ошибки
             required:
               - uidLinkDocReade
+              - UIDObjPrint
+              - pdfURL
         '403':
           description: Выполнение запроса завершилось ошибкой
           schema:
