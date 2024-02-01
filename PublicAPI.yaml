@@ -9298,9 +9298,6 @@ paths:
               pdfURL:
                 type: string
                 description: Ссылка (URL) на документ в формате PDF
-              error:
-                type: string
-                description: Описание ошибки
             required:
               - uidLinkDocReade
               - UIDObjPrint
