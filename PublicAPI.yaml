@@ -9280,7 +9280,7 @@ paths:
               makeDoc:
                 type: string
                 description: Операция "read" - создание документа (чтение клиентом и создание в КПО); "write" - подписание документа
-              uidLinkDocReade:
+              UIDObjPrint:
                 type: string
                 description: Идентификатор документа для подписания при операции "write"
             required:
@@ -9292,12 +9292,9 @@ paths:
           schema:
             type: object
             properties:
-              uidLinkDocReade:
-                type: string
-                description: Идентификатор документа для ознакомпления и подписания (для read)
               UIDObjPrint:
                 type: string
-                description: Идентификатор документа для ознакомпления и подписания (для write)
+                description: Идентификатор документа для ознакомпления и подписания
               pdfURL:
                 type: string
                 description: Ссылка (URL) на документ в формате PDF
