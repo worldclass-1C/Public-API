@@ -6120,9 +6120,12 @@ paths:
               employeeId:
                 type: string
                 description: индентификатор сотрудника
+              employeeIds:
+                type: array
+                description: массив индентификаторов сотрудника
               serviceId:
                 type: string
-                description: идентификатор услуги
+                description: идентификатор услуги (обязательный параметр если указывается employeeIds)
             required:
               - uid
           x-examples: {}
