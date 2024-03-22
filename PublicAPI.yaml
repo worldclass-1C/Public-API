@@ -6123,6 +6123,9 @@ paths:
               employeeIds:
                 type: array
                 description: массив индентификаторов сотрудника
+                items:
+                    type: string
+                    description: идентификатор сотрудника
               serviceId:
                 type: string
                 description: идентификатор услуги (обязательный параметр если указывается employeeIds)
