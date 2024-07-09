@@ -9321,6 +9321,86 @@ paths:
                 description: описание ошибки
       x-examples: { }
       tags:
+        - Customers
+  
+  /customers/chaindocs:
+    post:
+      summary: Список документов сети (прочтение и ознакомление)
+      operationId: chaindocs
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - type: string
+          in: header
+          name: request
+          required: true
+          description: имя запроса
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Chain код города
+              action:
+                type: string
+                description: Операция "read" - чтение документа (создает отметку о прочтении); "write" - ознакомление с документами в массиве (создает отметку об ознакомлении)
+              doctype:
+                type: array
+                description: 'Тип документа '
+                items:
+                  type: string
+                  enum:
+                    - SafetyInstructions
+                    - rulesRef
+                    - pdnRef
+                    - contractCorpGeneral
+            required:
+              - code
+              - action
+              - doctype
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: array
+            description: список документов
+            items:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: ссылка на документ в формате pdf (является уникальным идентификатором)
+                read:
+                  type: boolean
+                  description: ознакомление с документом (true - документ прочитан)
+                doctype:
+                  type: string
+                  description: тип документа
+                title:
+                  type: string
+                  description: название документа
+              required:
+                - url
+                - read
+                - doctype
+                - title
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      x-examples: { }
+      tags:
         - Customers        
   /info/eventInfo:
     post:
