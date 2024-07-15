@@ -4538,6 +4538,12 @@ paths:
                 pdn:
                   type: string
                   description: ссылка на пдн
+                contractCorpGeneral:
+                  type: string
+                  description: ссылка на типовую форму корпоративного договора
+                SafetyInstructions:
+                  type: string
+                  description: ссылка на инструктаж по безопасности                  
               required:
                 - brand
                 - code
