@@ -9343,7 +9343,7 @@ paths:
             type: object
             properties:
               code:
-                type: string
+                type: integer
                 description: Chain код города
               action:
                 type: string
