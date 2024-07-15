@@ -4558,6 +4558,122 @@ paths:
       tags:
         - Lists
       operationId: chainList
+  /lists/chainListNewApp:
+    post:
+      summary: список сетей - 1.1 (CONNECT)
+      description: |-
+        Возвращает массив сетей подключенных к личному кабинету
+
+        Ответственный 
+      parameters:
+        - name: content-type
+          in: header
+          required: true
+          type: string
+          default: application/json
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: chainListNewApp
+        - $ref: '#/parameters/language'
+        - name: brand
+          in: header
+          required: true
+          type: string
+          description: бренд
+          default: None
+          enum:
+            - WorldClass
+            - Fizkult
+            - UFC
+            - None
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                brand:
+                  type: string
+                  description: бренд
+                code:
+                  type: number
+                  description: код сети
+                holdingCode:
+                  type: number
+                  description: код холдинга
+                name:
+                  type: string
+                  description: наименование сети
+                loyaltyProgram:
+                  type: string
+                  description: бонусная система
+                  enum:
+                    - Rating
+                    - Bonus
+                    - RatingBonus
+                    - None
+                currencySymbol:
+                  type: string
+                  description: символ национальной валюты
+                countryCode:
+                  $ref: '#/definitions/countryCode'
+                phone:
+                  type: string
+                  description: номер телефона поддержки
+                email:
+                  type: string
+                  description: почта техподдержки
+                timeZone:
+                  description: временная зона
+                  type: string
+                availableSections:
+                  type: array
+                  description: доступные разделы
+                  items:
+                    type: string
+                    enum:
+                      - packageInfo
+                      - membershipInfo
+                      - bonus
+                      - rentedLockerList
+                      - paymentPackage
+                      - bannerList
+                      - nearestService
+                      - support
+                      - balance
+                      - familyAccount
+                      - financialHistory
+                rules:
+                  type: string
+                  description: ссылка на правил
+                pdn:
+                  type: string
+                  description: ссылка на пдн
+                contractCorpGeneral:
+                  type: string
+                  description: ссылка на типовую форму корпоративного договора
+                SafetyInstructions:
+                  type: string
+                  description: ссылка на инструктаж по безопасности                  
+              required:
+                - brand
+                - code
+                - holdingCode
+                - name
+                - loyaltyProgram
+                - currencySymbol
+                - countryCode
+                - availableSections
+                - rules
+                - pdn
+      tags:
+        - Lists
+      operationId: chainListNewApp      
   /lists/countryCodeList:
     post:
       summary: список кодов стран - 1.2 (CONNECT)
