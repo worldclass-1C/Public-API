@@ -113,7 +113,7 @@ paths:
             Коды ошибок:
 
                 * AuthWrongCodeError - ошибка ввода кода
-                
+            
                 * AuthExpiredCodeError - срок действия кода 
             
                 * AuthCodeWasNotSentError - код не был получен пользователем
@@ -427,7 +427,7 @@ paths:
         - "Избранное"
       summary: Пометить клуб понравившемся | DB
       operationId: postGymsGymUIDLiked
-      description: | 
+      description: |
         Связываем авторизованного пользователя и переданного ID клуба
       security:
         - ApiKeyAuth: [ ]
@@ -1113,8 +1113,8 @@ paths:
           description: id тренера
           example: cc35e9b9-d155-11e4-80d1-005056810138
           schema:
-              type: string
-              format: uuid
+            type: string
+            format: uuid
         - name: gymUID
           in: query
           description: id клуба
@@ -1977,7 +1977,7 @@ paths:
             type: integer
             default: 10
       security:
-          - ApiKeyAuth: []
+        - ApiKeyAuth: []
       tags:
         - "Онбординг"
       responses:
@@ -2726,6 +2726,98 @@ paths:
         404:
           $ref: "#/components/responses/NotFoundError"
 
+  /feedback:
+    post:
+      operationId: postAppFeedback
+      tags:
+        - "Отзывы"
+      summary: Регистрация обратной связи
+      description: Endpoint to submit feedback with necessary details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                gymId:
+                  type: string
+                  description: Идентификатор клуба
+                directionId:
+                  type: string
+                  description: Идентификатор должности
+                requestTypeId:
+                  type: string
+                  description: Идентификатор типа обращения
+                membershipTypeId:
+                  type: string
+                  description: 'Тип контракта: 1-индивидуальный, 2-корпоративный'
+                content:
+                  type: string
+                  description: Содержание обращения
+                content2:
+                  type: string
+                  description: 'Части содержимого обращения, при невозможности уместить все в одном параметре'
+                currentTime:
+                  type: string
+                  description: Текущая дата сеанса клиента
+                company:
+                  type: string
+                  description: Название компании
+                userId:
+                  type: string
+                  description: Идентификатор клиента (uid элемента справочника контрагенты)
+                lastName:
+                  type: string
+                  description: Фамилия
+                firstName:
+                  type: string
+                  description: Имя
+                secondName:
+                  type: string
+                  description: Отчество
+                phone:
+                  type: string
+                  description: Телефон
+                referer:
+                  type: string
+                  description: UTM-метки
+                email:
+                  type: string
+                  description: e-mail
+                tildaspecreferer:
+                  type: string
+                  description: Реферер запроса с сайта
+                tildaspecformid:
+                  type: string
+                  description: Идентификатор формы на сайте
+                tildaspecformname:
+                  type: string
+                  description: Имя формы на сайте
+                tildaspecpageid:
+                  type: string
+                  description: Идентификатор страницы сайта
+                tildaspecprojectid:
+                  type: string
+                  description: Идентификатор проекта
+                requestSubjectId:
+                  type: string
+                  description: Тема обращения
+              required:
+                - content
+      responses:
+        200:
+          description: Выполнение запроса завершилось успешно
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostAppFeedbackResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationRequiredError"
+        400:
+          $ref: "#/components/responses/ValidationError"
+        500:
+          $ref: "#/components/responses/InternalServerError"
 
   /feedbacks:
     get:
@@ -3062,6 +3154,30 @@ paths:
         403:
           $ref: "#/components/responses/ForbiddenError"
 
+  /chaindocs:
+    post:
+      summary: Возвращает документ
+      operationId: getChaindocs
+      security:
+        - ApiKeyAuth: [ ]
+      tags:
+        - "Документы"
+      requestBody:
+        $ref: "#/components/requestBodies/ChaindocBody"
+      responses:
+        200:
+          description: Операция прошла успешна
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChaindocResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationRequiredError"
+        403:
+          $ref: "#/components/responses/ForbiddenError"          
+
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -3283,6 +3399,7 @@ components:
             required:
               - uid
               - gymUid
+
     PackageConstructorBody:
       required: true
       content:
@@ -3599,6 +3716,27 @@ components:
                 type: string
                 description: ключ кеша для сброса
 
+    ChaindocBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - action
+              - code
+              - doctype
+            properties:
+              action:          
+                type: string
+                description: "Может принимать значения: read/write. read: получаем все доки юзера; write: отмечаем факт ознакомления с массивом документов"
+              code:
+                type: number
+              doctype:
+                type: array
+                description: "Тип документа"
+                items:
+                  type: string
 
   # Reusable path, query, header and cookie parameters
   parameters:
@@ -3691,9 +3829,9 @@ components:
         multipleTypes:
           summary: Пример для нескольких значений
           value: [
-              c4f88ced-e55a-11eb-bc67-005056b122e0,
-              d4f88ced-e55a-11eb-bc67-005056b122e1,
-            ] # ?types=gym,outdoor
+            c4f88ced-e55a-11eb-bc67-005056b122e0,
+            d4f88ced-e55a-11eb-bc67-005056b122e1,
+          ] # ?types=gym,outdoor
     TrainerIds:
       name: trainerUids
       in: query
@@ -5279,6 +5417,12 @@ components:
         email:
           description: почта техподдержки
           type: string
+        contractCorpGeneral:
+          description: ссылка на типовую форму корпоративного договора
+          type: string
+        SafetyInstructions:
+           description: ссылка на инструктаж по безопасности
+           type: string
       required:
         - code
         - availableSections
@@ -5289,6 +5433,8 @@ components:
         - pdn
         - phone
         - email
+        - contractCorpGeneral
+        - SafetyInstructions
     ChainList:
       type: object
       properties:
@@ -5688,19 +5834,19 @@ components:
           type: string
         hasAccess:
           type: boolean
-#        type: | # ios error
-#          type: string
-#          enum:
-#            - gym
-#            - online
-#            - studio
-#            - outdoor
+      #        type: | # ios error
+      #          type: string
+      #          enum:
+      #            - gym
+      #            - online
+      #            - studio
+      #            - outdoor
       required:
         - uid
         - name
         - phone
         - hasAccess
-#        - type | # ios error
+      #        - type | # ios error
       type: object
 
     ScheduleOnlineRef:
@@ -8158,12 +8304,12 @@ components:
         - ref
 
     ObjectivePromo:
-        description: Информация по онбордингу
-        type: object
-        properties:
-          isObjectivePromoNeed:
-            description: Флаг необходимости онбординга
-            type: boolean
+      description: Информация по онбордингу
+      type: object
+      properties:
+        isObjectivePromoNeed:
+          description: Флаг необходимости онбординга
+          type: boolean
 
     SelfActivity:
       type: object
@@ -8213,8 +8359,8 @@ components:
         startDate:
           description: время начала
           example: "2019-07-01T10:00:00"
-#          format: date-time
-#          x-go-type: openapi.CustomTime
+          #          format: date-time
+          #          x-go-type: openapi.CustomTime
           type: string
         objectiveID:
           description: Идентификатор цели пользователя
@@ -8260,11 +8406,11 @@ components:
       example: 1.2
 
     SelfActivityExerciseDuration:
-        description: Длительность тренировки в минутах
-        type: integer
-        minimum: 1
-        example: 60
-        default: 60
+      description: Длительность тренировки в минутах
+      type: integer
+      minimum: 1
+      example: 60
+      default: 60
 
     EventInfo:
       type: object
@@ -8279,17 +8425,17 @@ components:
           items:
             $ref: "#/components/schemas/EventServiceCard"
         startDate:
-            description: время начала
-            example: "2019-07-01T10:00:00"
-            format: date-time
-            x-go-type: openapi.CustomTime
-            type: string
+          description: время начала
+          example: "2019-07-01T10:00:00"
+          format: date-time
+          x-go-type: openapi.CustomTime
+          type: string
         endDate:
-            description: время окончания
-            example: "2019-07-01T10:00:00"
-            format: date-time
-            x-go-type: openapi.CustomTime
-            type: string
+          description: время окончания
+          example: "2019-07-01T10:00:00"
+          format: date-time
+          x-go-type: openapi.CustomTime
+          type: string
         gym:
           $ref: "#/components/schemas/EventGym"
         room:
@@ -8561,19 +8707,19 @@ components:
           description: id объекта
           example: "422f29ec-c067-11ec-bcea-005056b122e0"
         name:
-            type: string
-            description: название события
-            minLength: 1
-            example: "Школа шпагата"
+          type: string
+          description: название события
+          minLength: 1
+          example: "Школа шпагата"
         image:
-            type: string
-            description: ссылка на изображение
+          type: string
+          description: ссылка на изображение
         datetime:
-            type: string
-            format: date-time
-            description: дата и время посещения
-            x-go-type: openapi.CustomTime
-            example: "2022-06-10T00:00:00"
+          type: string
+          format: date-time
+          description: дата и время посещения
+          x-go-type: openapi.CustomTime
+          example: "2022-06-10T00:00:00"
 
     ServiceOnboardEntryList:
       type: object
@@ -8868,17 +9014,17 @@ components:
     PaymentScheduleList:
       type: object
       properties:
-          amount:
-            description: оставшаяся сумма платежа
-            type: number
-            format: double
-          date:
-            description: дата платежа
-            format: date-time
-            type: string
+        amount:
+          description: оставшаяся сумма платежа
+          type: number
+          format: double
+        date:
+          description: дата платежа
+          format: date-time
+          type: string
       required:
-            - date
-            - amount
+        - date
+        - amount
 
     UserMembershipGym:
       type: object
@@ -9260,3 +9406,28 @@ components:
         - message
         - phone
 
+    PostAppFeedbackResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          description: В настоящее время используется строковая константа "Ok"
+        description:
+          type: string
+        requestToken:
+          type: string
+          description: Номер созданного бизнес-процесса
+      required:
+        - requestToken
+    ChaindocResponse:      
+      type: object
+      properties:
+        url:
+          type: string
+        read:
+          type: boolean
+        doctype: 
+          type: string
+        title:
+          type: string  
+    
