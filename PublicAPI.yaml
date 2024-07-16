@@ -30,6 +30,7 @@ tags:
   - name: Payment
   - name: Service
   - name: Cache
+  - name: Health
   - name: KPO
   - name: Polls
   - name: Rooms
@@ -10856,6 +10857,51 @@ paths:
         - Cache
     x-restlet:
       section: Cache
+  /health/check:
+    post:
+      summary: Проверка состояния работы контура
+      description: |-
+        Возвращает состояние контура в формате Prometheus
+
+        Ответственный
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - name: request
+          in: header
+          type: string
+          description: наименование запроса
+          default: check
+          required: true
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: string
+            description: Статус Prometheus. wcl_backend_service{application="1с_backend", service_name="Connect"} 1
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      operationId: check
+      tags:
+        - Health
+    x-restlet:
+      section: Health
+    parameters: []      
   /general/availableFeatures:
     post:
       summary: Запрос доступных функций
