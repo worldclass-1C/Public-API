@@ -14065,9 +14065,21 @@ definitions:
         type: string
         example: '(###) ###-##-##'
         description: маска телефонного номера
+      countryName:
+        type: string
+        description: страна
+      appCustomer:
+        type: boolean
+        description: отображать в приложении клиента
+      appEmployee:
+        type: boolean
+        description: отображать в приложении тренера
     required:
       - code
       - mask
+      - countryName
+      - appCustomer
+      - appEmployee
   service:
     type: object
     description: Услуга/сегмент
