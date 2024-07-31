@@ -5888,6 +5888,71 @@ paths:
                 description: описание ошибки
                 example: У вас есть услуги в указанный период
       operationId: employeeAddChangeBooking
+    parameters: [ ]
+  /employeeCancelBooking:
+    post:
+      summary: Отмена записи/резерва
+      description: |-
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: employeeCancelBooking
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              docId:
+                type: string
+                example: e80b0004-2fc3-11ef-88ed-70106fb7461b
+                description: Идентификатор документа
+              causeId:
+                type: string
+                example: 625b9cf3-1f2b-11e5-80d6-005056811447
+                description: |-
+                  Причина отмены, может принимать два значения
+                  Клиент - a62c8e2d-16af-11e5-80d8-005056810138
+                  Тренер - 625b9cf3-1f2b-11e5-80d6-005056811447 (для мп тренера)
+            required:
+              - docId
+              - causeId
+          description: 'request example  '
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: 'ok'
+              additional:
+                type: array
+                description: идентификатор документа записи/резерва
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+              description:
+                type: string
+                description: описание ошибки
+      operationId: employeeCancelBooking
     parameters: [ ]    
   /lists/employeeListForPrebooking:
     x-restlet:
