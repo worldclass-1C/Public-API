@@ -5799,6 +5799,96 @@ paths:
         - Information
       operationId: gymInfo
     parameters: []
+  /employeeAddChangeBooking:
+    post:
+      summary: Открытие записи/резерва
+      description: |-
+        Метод позволяющий тренеру закрыть запись на определенный период
+        Шаг резерва - 30 мин
+        Ограничений на кол-во резервов в рамках ЭС нет
+        Ограничение кол-ва символов в поле description - 64
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - name: request
+          in: header
+          required: true
+          type: string
+          description: наименование запроса
+          default: employeeAddChangeBooking
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              gymId:
+                type: string
+                example: cc35e9bd-d155-11e4-80d1-005056810138
+                description: идентификатор клуба
+              roomId:
+                type: string
+                description: Идентификатор помещения (В резерве оставить пустым)
+              startDate:
+                type: string
+                format: date-time
+                description: Дата и время начала резерва
+              customers:
+                type: string
+                description: Идентификатор клиента (В резерве оставить пустым)
+              services:
+                type: string
+                description: Идентификатор услуги (В резерве оставить пустым)
+              type:
+                type: string
+                description: Тип записи
+                example: Booking
+              description:
+                type: string
+                description: Комментарий
+                example: Резерв для Василия Ивановича/Отпуск
+              endDate:
+                type: string
+                format: date-time
+                description: Дата и время конца резерва
+            required:
+              - gymId
+              - startDate
+              - endDate
+              - type
+          description: 'request example  '
+      responses:
+        '200':
+          description: Выполнение запроса завершилось успешно
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: 'ok'
+              additional:
+                type: array
+                description: идентификатор документа записи/резерва
+        '403':
+          description: Выполнение запроса завершилось ошибкой
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: код ошибки
+                example: PeriodIsBusy
+              description:
+                type: string
+                description: описание ошибки
+                example: У вас есть услуги в указанный период
+      operationId: employeeAddChangeBooking
+    parameters: [ ]    
   /lists/employeeListForPrebooking:
     x-restlet:
       section: Lists
