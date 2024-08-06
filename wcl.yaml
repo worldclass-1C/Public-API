@@ -2729,10 +2729,10 @@ paths:
   /feedback:
     post:
       operationId: postAppFeedback
-      tags:
-        - "Отзывы"
       summary: Регистрация обратной связи
       description: Endpoint to submit feedback with necessary details.
+      security:
+        - ApiKeyAuth: [ ]
       requestBody:
         required: true
         content:
@@ -3725,18 +3725,12 @@ components:
             required:
               - action
               - code
-              - doctype
             properties:
               action:          
                 type: string
                 description: "Может принимать значения: read/write. read: получаем все доки юзера; write: отмечаем факт ознакомления с массивом документов"
               code:
                 type: number
-              doctype:
-                type: array
-                description: "Тип документа"
-                items:
-                  type: string
 
   # Reusable path, query, header and cookie parameters
   parameters:
@@ -6816,12 +6810,17 @@ components:
           format: double
           description: сумма неоплаченных услуг
           example: 100500.00
+        chaindocs:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChaindocResponse"
         type:
           type: string
           enum:
             - media
             - service-debt
             - adv-clip-card
+            - chaindoc-brief
       required:
         - text
         - order
@@ -7352,6 +7351,12 @@ components:
         cardName:
           type: string
           description: название клубной карты
+        amount:
+          type: integer
+          description: цена
+        amountDiscount:
+          type: number
+          description: цена со скидкой
       required:
         - title
         - type
@@ -9205,6 +9210,18 @@ components:
         canFreezing:
           type: boolean
           description: может ли быть заморожен
+        tipType:
+          type: string
+          enum:
+            - getNewCard
+            - waitingForFullPayment
+            - waitingForPartialPayment
+            - waitingForActivation
+            - waitingSignForTinkoff
+            - cardFrozen
+            - cardExpired
+            - cardExpiring
+            - cardTinkoff
       required:
         - uid
         - code
@@ -9224,6 +9241,7 @@ components:
         - canFreezing
         - shortDescription
         - shortDiscription
+        - tipType
 
     UserMembershipDetails:
       allOf:
@@ -9421,6 +9439,11 @@ components:
         - requestToken
     ChaindocResponse:      
       type: object
+      required:
+        - url
+        - read
+        - doctype
+        - title
       properties:
         url:
           type: string
