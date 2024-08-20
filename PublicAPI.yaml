@@ -267,7 +267,7 @@ paths:
           x-examples: {}
       responses:
         '200':
-          description: Выполнение запроса завершилось успешно
+          description: Выполнение запроса завершилось успешно. В случае срабатывания органичения от спама result = retry
           schema:
             required:
               - result
@@ -281,6 +281,7 @@ paths:
                 enum:
                   - Ok
                   - Fail
+                  - retry
               retryTime:
                 type: integer
                 description: количество минут до следующей отправки
