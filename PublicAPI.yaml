@@ -13686,7 +13686,125 @@ paths:
     x-restlet:
       section: Customers
     parameters: []
-
+  /customers/FriendGiftList:
+    post:
+      summary: Возвращает информацию о промокодах
+      description: Метод возвращает информацию о активных промокодах текущего пользователя.
+      x-restlet:
+        section: Customers
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - $ref: '#/parameters/request'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+      responses:
+        '200':
+          description: Успешный ответ
+          schema:
+            type: object
+            properties:
+              promocodes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    promoId:
+                      type: string
+                      example: db97762b-37bd-11ef-b749-507c6f2bb66d
+                      description: Уникальный идентификатор промокода (Справочник.СерииНоменклатуры)
+                    code:
+                      type: string
+                      example: 1e-34rd-76
+                      description: Сам промокод
+                    discountAmount:
+                      type: integer
+                      example: 10
+                      description: Размер скидки в процентах или в валюте
+                    discountType:
+                      type: string
+                      enum: [ percent, amount ]
+                      example: percent
+                      description: Тип скидки (percent - процентная скидка, amount - фиксированная сумма)
+                    endDate:
+                      type: string
+                      format: date
+                      example: '2025-04-01'
+                      description: Дата окончания действия промокода
+                    useType:
+                      type: string
+                      enum: [ forTransfer, forUse ]
+                      example: forTransfer
+                      description: Тип промокода (forTransfer - передаётся другу, forUse - используется самим пользователем)
+  /customers/TransferPromoCode:
+    post:
+      summary: Передача промокода другому пользователю
+      description: Метод позволяет передавать промокод другому пользователю, если он является новым членом клуба или зарегистрированным пользователем, но для него соблюдаются условия передачи промокода.
+      x-restlet:
+        section: Customers
+      tags:
+        - Customers
+      parameters:
+        - $ref: '#/parameters/content-type'
+        - $ref: '#/parameters/request'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/auth-key'
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              promoId:
+                type: string
+                example: db97762b-37bd-11ef-b749-507c6f2bb66d
+                description: Уникальный идентификатор промокода
+              recipientUid:
+                type: string
+                example: fr94562b-37bd-11ef-f749-507c6f2bb66d
+                description: Уникальный идентификатор получателя
+      responses:
+        '200':
+          description: Успешное выполнение операции
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: Ok
+                description: Результат выполнения операции
+              description:
+                type: string
+                example: Промокод передан
+                description: Описание результата выполнения операции
+        '403':
+          description: Ошибки передачи промокода
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum:
+                  - promocodeNotFound
+                  - promocodeAlreadyTransfered
+                  - recipientNotNew
+                  - promocodeAlreadyAssigned
+                  - promoCodeTransferNotAllowedForEmployee
+                  - clientAgeRestriction
+                description: Код ошибки
+              description:
+                type: string
+                description: Описание ошибки
+                enum:
+                  - У вас нет данного промокода.
+                  - Этот промокод уже был передан ранее.
+                  - Невозможно подарить промокод пользователю, он не является новым членом клуба.
+                  - У получателя уже есть активный промокод. Передача нового промокода запрещена.
+                  - Передача промокодов сотрудникам запрещена.
+                  - Клиенту должно быть не менее 16 лет.
   /payment/autoPayment:
     put:
       summary: провести автоплатеж
